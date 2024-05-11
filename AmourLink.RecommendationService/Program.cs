@@ -1,3 +1,5 @@
+using AmourLink.RecommendationService.Extensions;
+
 namespace AmourLink.RecommendationService;
 
 public class Program
@@ -5,6 +7,10 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddControllers();
+
+        builder.Services.AddDataServices(builder.Configuration);
         
         builder.Services.AddAuthorization();
         
@@ -12,8 +18,7 @@ public class Program
         builder.Services.AddSwaggerGen();
 
         var app = builder.Build();
-
-        // Configure the HTTP request pipeline.
+        
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -21,8 +26,10 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-
+        
         app.UseAuthorization();
+
+        app.MapControllers();
         
         app.Run();
     }
