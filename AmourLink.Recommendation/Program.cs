@@ -20,6 +20,7 @@ public class Program
         
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGenNewtonsoftSupport();
 
         var app = builder.Build();
         

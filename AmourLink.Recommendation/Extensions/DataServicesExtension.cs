@@ -10,8 +10,10 @@ public static class DataServicesExtension
         IConfiguration configuration)
     {
         services.AddDbContext<ApplicationDbContext>(opt =>
-            opt.UseMySql(configuration.GetConnectionString("DefaultConnectionString"),
-                new MySqlServerVersion(new Version(8, 0, 31))));
+            opt.UseMySql(
+                configuration.GetConnectionString("DefaultConnectionString"),
+                new MySqlServerVersion(new Version(8, 0, 31)),
+               options => options.UseNetTopologySuite()));
 
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         

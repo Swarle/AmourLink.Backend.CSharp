@@ -11,8 +11,7 @@ public class MemberDto
     public string? Occupation { get; set; }
     public string? Nationality { get; set; }
     public required string Gender { get; set; }
-    public float LastLocationLongitude { get; set; }
-    public float LastLocationLatitude { get; set; }
+    public required LocationDto Location { get; set; }
     public DegreeDto? Degree { get; set; }
     public List<PictureDto> Pictures { get; set; } = [];
     public List<string> Hobbies = [];

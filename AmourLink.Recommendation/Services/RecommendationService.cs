@@ -26,13 +26,14 @@ namespace AmourLink.Recommendation.Services
 
         public async Task<List<MemberDto>> GetPagedFeedAsync(PaginationParams paginationParams, CancellationToken cancellationToken = default)
         {
-            var specification = new UserWithProfileSpecification();
+            var specification = new UserWithProfileSpecification(35, 18, 50.325481d, 30.81113d, 40, 1400);
             
             var users = await _userRepository.GetPagedListAsync(specification, paginationParams.PageNumber,
                 paginationParams.PageSize, cancellationToken);
             
             _context.Response.AddPaginationHeader(users.CurrentPage,
                 users.TotalPages, users.PageSize, users.TotalCount);
+            
 
             var userDtos = _mapper.Map<List<MemberDto>>(users);
             
