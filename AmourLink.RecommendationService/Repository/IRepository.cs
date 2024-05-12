@@ -1,6 +1,8 @@
-﻿namespace AmourLink.RecommendationService.Repository;
+﻿using AmourLink.RecommendationService.Data.Abstract;
 
-public interface IRepository<TEntity> where TEntity : class
+namespace AmourLink.RecommendationService.Repository;
+
+public interface IRepository<TEntity> where TEntity : Entity
 {
     Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
     Task<List<TEntity>> GetAllAsync(CancellationToken cancellationToken = default);

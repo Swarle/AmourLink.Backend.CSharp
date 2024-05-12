@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using AmourLink.RecommendationService.Data.Abstract;
 
 namespace AmourLink.RecommendationService.Data.Entities;
 
-public class UserDetails
+public class UserDetails : Entity
 {
-    public Guid Id { get; set; }
     public required string FirstName { get; set; }
     public string? LastName { get; set; }
     public required uint Age { get; set; }

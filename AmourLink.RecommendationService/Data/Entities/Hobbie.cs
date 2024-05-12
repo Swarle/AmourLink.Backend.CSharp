@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using AmourLink.RecommendationService.Data.Abstract;
 
 namespace AmourLink.RecommendationService.Data.Entities;
 
-public class Hobbie
+public class Hobbie : Entity
 {
-    public Guid Id { get; set; }
     public Guid UserDetailsId { get; set; }
     public required string HobbieName { get; set; }
     
