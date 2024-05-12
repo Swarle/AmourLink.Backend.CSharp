@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestService", "TestService\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{912FEEB8-09F7-4247-90C6-1EF24EC8155A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmourLink.RecommendationService", "AmourLink.RecommendationService\AmourLink.RecommendationService.csproj", "{FE797D08-7AC1-4127-B8BC-C0CD9E83B2EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmourLink.Recommendation", "AmourLink.Recommendation\AmourLink.Recommendation.csproj", "{FE797D08-7AC1-4127-B8BC-C0CD9E83B2EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Somework to do", "Somework to do\Somework to do.csproj", "{EA765458-D84B-450F-AFE7-28ADF8FF9CC3}"
 EndProject
