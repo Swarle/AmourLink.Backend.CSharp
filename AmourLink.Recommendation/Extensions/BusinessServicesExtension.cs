@@ -8,6 +8,8 @@ public static class BusinessServicesExtension
 {
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
+        services.AddHttpContextAccessor();
+        
         services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
         
         services.AddScoped<IRecommendationService,RecommendationService>();
