@@ -4,6 +4,7 @@ using AmourLink.Recommendation.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AmourLink.Recommendation.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240512170224_ChangedPreferenceEntity")]
+    partial class ChangedPreferenceEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,6 +168,10 @@ namespace AmourLink.Recommendation.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("binary(16)")
                         .HasColumnName("preference_id");
+
+                    b.Property<float>("CompabilityPreference")
+                        .HasColumnType("float")
+                        .HasColumnName("compability_preference");
 
                     b.Property<decimal>("DistanceRange")
                         .HasPrecision(4, 2)

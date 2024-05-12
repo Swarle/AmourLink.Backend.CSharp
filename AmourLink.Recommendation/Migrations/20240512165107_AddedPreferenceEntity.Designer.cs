@@ -4,6 +4,7 @@ using AmourLink.Recommendation.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AmourLink.Recommendation.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240512165107_AddedPreferenceEntity")]
+    partial class AddedPreferenceEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,6 +169,14 @@ namespace AmourLink.Recommendation.Migrations
                         .HasColumnType("binary(16)")
                         .HasColumnName("preference_id");
 
+                    b.Property<int>("AgeRange")
+                        .HasColumnType("int")
+                        .HasColumnName("age_range");
+
+                    b.Property<float>("CompabilityPreference")
+                        .HasColumnType("float")
+                        .HasColumnName("compability_preference");
+
                     b.Property<decimal>("DistanceRange")
                         .HasPrecision(4, 2)
                         .HasColumnType("decimal(4,2)")
@@ -176,14 +187,6 @@ namespace AmourLink.Recommendation.Migrations
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)")
                         .HasColumnName("gender");
-
-                    b.Property<int>("MaxAge")
-                        .HasColumnType("int")
-                        .HasColumnName("max_age");
-
-                    b.Property<int>("MinAge")
-                        .HasColumnType("int")
-                        .HasColumnName("min_age");
 
                     b.Property<byte[]>("UserId")
                         .IsRequired()
