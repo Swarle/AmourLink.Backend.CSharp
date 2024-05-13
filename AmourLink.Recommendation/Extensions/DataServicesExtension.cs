@@ -1,4 +1,5 @@
 ﻿using AmourLink.Recommendation.Data.Context;
+using AmourLink.Recommendation.Infrastructure.StaticConstants;
 using AmourLink.Recommendation.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +12,7 @@ public static class DataServicesExtension
     {
         services.AddDbContext<ApplicationDbContext>(opt =>
             opt.UseMySql(
-                configuration.GetConnectionString("DefaultConnectionString"),
+                configuration.GetConnectionString(SD.DefaultConnection),
                 new MySqlServerVersion(new Version(8, 0, 31)),
                options => options.UseNetTopologySuite()));
 

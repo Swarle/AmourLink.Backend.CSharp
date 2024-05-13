@@ -15,12 +15,12 @@ public class Program
 
         builder.Services.AddDataServices(builder.Configuration);
         builder.Services.AddServices();
-        
+
+        builder.Services.AddAuthenticationConfigured(builder.Configuration);
         builder.Services.AddAuthorization();
         
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-        builder.Services.AddSwaggerGenNewtonsoftSupport();
+        builder.Services.AddSwaggerGenConfigured();
 
         var app = builder.Build();
         

@@ -1,4 +1,6 @@
 ﻿using AmourLink.Recommendation.Data.Entities;
+using AmourLink.Recommendation.Infrastructure;
+using AmourLink.Recommendation.Infrastructure.StaticConstants;
 using AmourLink.Recommendation.Specification.Infrastructure;
 using NetTopologySuite.Geometries;
 
@@ -8,6 +10,8 @@ public sealed class UserWithProfileSpecification : BaseSpecification<User>
 {
     public UserWithProfileSpecification(int maxAge, int minAge, double userLatitude, double userLongitude, int range, int userRating)
     {
+        const double staticNum = 111d;
+         
         AddInclude($"{nameof(User.UserDetails)}");
         AddInclude($"{nameof(UserDetails)}.{nameof(UserDetails.Degree)}");
         AddInclude($"{nameof(UserDetails)}.{nameof(UserDetails.Hobbies)}");
@@ -15,12 +19,15 @@ public sealed class UserWithProfileSpecification : BaseSpecification<User>
         AddInclude($"{nameof(UserDetails)}.{nameof(UserDetails.Pictures)}");
 
         var userCords = new Point(userLongitude, userLatitude);
-        var rangeDegrees = range / 111d;
+        var rangeDegrees = range / staticNum;
         
         AddExpression(e => e.UserDetails!.LastLocation!.Distance(userCords) <= rangeDegrees);
         AddExpression(e => e.UserDetails!.Age < maxAge && e.UserDetails.Age > minAge);
-        AddExpression(e => (e.Rating > (userRating - 200)) && (e.Rating < (userRating + 300)));
-        AddOrderBy(e => (e.UserDetails!.LastLocation!.Distance(userCords) * 111));
+        AddExpression(e => Math.Abs(e.Rating - userRating) <= RatingRangeFilter.Range 
+                || Math.Abs(e.Rating - (userRating - RatingRangeFilter.Range)) <= RatingRangeFilter.Range 
+                || Math.Abs(e.Rating - (userRating + RatingRangeFilter.Range)) <= RatingRangeFilter.Range);
         
+        AddOrderBy(e => e.UserDetails!.LastLocation!.Distance(userCords) * staticNum);
+        AddThenBy(e => e.Rating);
     }
 }

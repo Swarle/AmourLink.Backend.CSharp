@@ -1,4 +1,5 @@
-﻿using AmourLink.Recommendation.Data.Entities;
+﻿using System.Security.Claims;
+using AmourLink.Recommendation.Data.Entities;
 using AmourLink.Recommendation.DTO;
 using AmourLink.Recommendation.Extensions;
 using AmourLink.Recommendation.Infrastructure.Pagination;
@@ -26,7 +27,12 @@ namespace AmourLink.Recommendation.Services
 
         public async Task<List<MemberDto>> GetPagedFeedAsync(PaginationParams paginationParams, CancellationToken cancellationToken = default)
         {
-            var specification = new UserWithProfileSpecification(35, 18, 50.325481d, 30.81113d, 40, 1400);
+            var currentUserId = new Guid(_context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+            var currentUser = await _userRepository.GetByIdAsync(currentUserId, cancellationToken);
+            
+            var specification = new UserWithProfileSpecification(35, 18, 50.325481d,
+                30.81113d, 40, 1400);
             
             var users = await _userRepository.GetPagedListAsync(specification, paginationParams.PageNumber,
                 paginationParams.PageSize, cancellationToken);

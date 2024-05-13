@@ -31,9 +31,27 @@ public static class QueryableExtensions
 
         if (specification.OrderBy != null)
         {
-            query = specification.IsOrderByDescending ? query.OrderByDescending(specification.OrderBy) 
-                : query.OrderBy(specification.OrderBy);
+            if (specification.IsOrderByDescending)
+            {
+                if (specification.ThenBy != null)
+                    query = specification.IsThenByDescending
+                        ? query.OrderByDescending(specification.OrderBy).ThenByDescending(specification.ThenBy)
+                        : query.OrderByDescending(specification.OrderBy).ThenBy(specification.ThenBy);
+                else
+                    query = query.OrderByDescending(specification.OrderBy);
+
+            }
+            else
+            {
+                if (specification.ThenBy != null)
+                    query = specification.IsThenByDescending
+                        ? query.OrderBy(specification.OrderBy).ThenByDescending(specification.ThenBy)
+                        : query.OrderBy(specification.OrderBy).ThenBy(specification.ThenBy);
+                else
+                    query = query.OrderBy(specification.OrderBy);
+            }
         }
+        
         
         return query;
     }

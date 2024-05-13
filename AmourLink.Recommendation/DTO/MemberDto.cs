@@ -11,6 +11,7 @@ public class MemberDto
     public string? Occupation { get; set; }
     public string? Nationality { get; set; }
     public required string Gender { get; set; }
+    public required int Rating { get; set; }
     public required LocationDto Location { get; set; }
     public DegreeDto? Degree { get; set; }
     public List<PictureDto> Pictures { get; set; } = [];

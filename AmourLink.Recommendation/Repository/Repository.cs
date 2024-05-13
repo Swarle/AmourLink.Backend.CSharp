@@ -40,6 +40,8 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
         IQueryable<TEntity> query = DbSet;
         
+        
+        
         var totalCollectionCount = await query.ApplySpecification(specification).CountAsync(cancellationToken);
 
         var page = pageNumber ?? 1;
