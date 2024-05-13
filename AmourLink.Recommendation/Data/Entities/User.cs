@@ -8,4 +8,5 @@ public class User : Entity
     public DateTime CreatedTime { get; set; }
     public required int Rating { get; set; }
     public UserDetails? UserDetails { get; set; }
+    public Preference? UserPreference { get; set; }
 }

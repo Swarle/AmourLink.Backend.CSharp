@@ -1,11 +1,9 @@
-﻿using System.Security.Claims;
-using System.Text;
+﻿using System.Text;
 using AmourLink.Recommendation.Infrastructure.StaticConstants;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
-namespace AmourLink.Recommendation.Extensions;
+namespace AmourLink.Recommendation.Extensions.ServiceExtension;
 
 public static class AuthenticationServicesExtension
 {
@@ -25,8 +23,6 @@ public static class AuthenticationServicesExtension
                     ValidateAudience = false
                 };
             });
-        
-        
         
         return services;
     }

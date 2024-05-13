@@ -3,7 +3,7 @@ using AmourLink.Recommendation.Infrastructure.StaticConstants;
 using AmourLink.Recommendation.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace AmourLink.Recommendation.Extensions;
+namespace AmourLink.Recommendation.Extensions.ServiceExtension;
 
 public static class DataServicesExtension
 {

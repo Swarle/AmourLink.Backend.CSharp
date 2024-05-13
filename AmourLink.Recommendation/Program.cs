@@ -1,4 +1,6 @@
 using AmourLink.Recommendation.Extensions;
+using AmourLink.Recommendation.Extensions.ServiceExtension;
+using AmourLink.Recommendation.Infrastructure.Middlewares;
 
 namespace AmourLink.Recommendation;
 
@@ -29,6 +31,8 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseApiExceptionMiddleware();
 
         app.UseHttpsRedirection();
         

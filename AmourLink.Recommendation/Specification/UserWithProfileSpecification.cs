@@ -8,7 +8,8 @@ namespace AmourLink.Recommendation.Specification;
 
 public sealed class UserWithProfileSpecification : BaseSpecification<User>
 {
-    public UserWithProfileSpecification(int maxAge, int minAge, double userLatitude, double userLongitude, int range, int userRating)
+    public UserWithProfileSpecification(int maxAge, int minAge, double userLatitude,
+        double userLongitude, int range, int userRating, Guid currentUserId)
     {
         const double staticNum = 111d;
          
@@ -21,6 +22,7 @@ public sealed class UserWithProfileSpecification : BaseSpecification<User>
         var userCords = new Point(userLongitude, userLatitude);
         var rangeDegrees = range / staticNum;
         
+        AddExpression(e => e.Id != currentUserId);
         AddExpression(e => e.UserDetails!.LastLocation!.Distance(userCords) <= rangeDegrees);
         AddExpression(e => e.UserDetails!.Age < maxAge && e.UserDetails.Age > minAge);
         AddExpression(e => Math.Abs(e.Rating - userRating) <= RatingRangeFilter.Range 

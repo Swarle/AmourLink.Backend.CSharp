@@ -17,8 +17,11 @@ public class PreferenceConfiguration : IEntityTypeConfiguration<Preference>
             .HasColumnType("binary(16)");
         builder.Property(e => e.Gender)
             .HasMaxLength(45);
-        builder.Property(e => e.DistanceRange)
-            .HasPrecision(4,2);
+        
+        builder.HasOne(p => p.User)
+            .WithOne(u => u.UserPreference)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("fk_preference_user_account1");
         
     }
 }

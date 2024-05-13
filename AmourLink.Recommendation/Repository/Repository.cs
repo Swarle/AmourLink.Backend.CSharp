@@ -55,4 +55,11 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
         return new PagedList<TEntity>(data, totalCollectionCount, page, size);
     }
+
+    public async Task<TEntity?> GetFirstOrDefaultAsync(BaseSpecification<TEntity> specification, CancellationToken cancellationToken = default)
+    {
+        IQueryable<TEntity> query = DbSet;
+
+        return await query.ApplySpecification(specification).FirstOrDefaultAsync(cancellationToken);
+    }
 }

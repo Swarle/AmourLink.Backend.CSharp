@@ -1,7 +1,9 @@
-﻿using System.Security.Claims;
+﻿using System.Net;
+using System.Security.Claims;
 using AmourLink.Recommendation.Data.Entities;
 using AmourLink.Recommendation.DTO;
 using AmourLink.Recommendation.Extensions;
+using AmourLink.Recommendation.Infrastructure;
 using AmourLink.Recommendation.Infrastructure.Pagination;
 using AmourLink.Recommendation.Repository;
 using AmourLink.Recommendation.Services.Interfaces;
@@ -27,20 +29,43 @@ namespace AmourLink.Recommendation.Services
 
         public async Task<List<MemberDto>> GetPagedFeedAsync(PaginationParams paginationParams, CancellationToken cancellationToken = default)
         {
-            var currentUserId = new Guid(_context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var currentUserId = _context.User.GetUserId();
+            
+            if(currentUserId == Guid.Empty)
+                throw new HttpException(HttpStatusCode.Unauthorized);
 
-            var currentUser = await _userRepository.GetByIdAsync(currentUserId, cancellationToken);
+
             
-            var specification = new UserWithProfileSpecification(35, 18, 50.325481d,
-                30.81113d, 40, 1400);
+            var userWithPreferencesAndDetailsSpecification = new UserWithPreferencesAndDetailsSpecification(currentUserId);
             
-            var users = await _userRepository.GetPagedListAsync(specification, paginationParams.PageNumber,
-                paginationParams.PageSize, cancellationToken);
+            var currentUser = await _userRepository.GetFirstOrDefaultAsync(userWithPreferencesAndDetailsSpecification, cancellationToken)
+                ?? throw new HttpException(HttpStatusCode.NotFound, $"User with id: {currentUserId} was not found");
+            
+            throw new HttpException(HttpStatusCode.BadRequest, new Dictionary<string, string>()
+            {
+                { "hz", "test" },
+                { "test", "hz" }
+            }, currentUser);
+
+            if (currentUser.UserDetails?.LastLocation == null)
+                throw new HttpException(HttpStatusCode.BadRequest,
+                    "Operation failed due to lack of information about the user's last location");
+
+            if (currentUser.UserPreference == null)
+                throw new HttpException(HttpStatusCode.InternalServerError,
+                    "Required field 'UserPreference' cannot be null");
+            
+            var userWithProfileSpecification = new UserWithProfileSpecification(currentUser.UserPreference.MaxAge,
+                currentUser.UserPreference.MinAge, currentUser.UserDetails.LastLocation.Y,
+                currentUser.UserDetails.LastLocation.X, currentUser.UserPreference.DistanceRange,
+                currentUser.Rating, currentUserId);
+            
+            var users = await _userRepository.GetPagedListAsync(userWithProfileSpecification,
+                paginationParams.PageNumber, paginationParams.PageSize, cancellationToken);
             
             _context.Response.AddPaginationHeader(users.CurrentPage,
                 users.TotalPages, users.PageSize, users.TotalCount);
             
-
             var userDtos = _mapper.Map<List<MemberDto>>(users);
             
             return userDtos;
