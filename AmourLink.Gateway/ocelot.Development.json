@@ -6,7 +6,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5001
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/api/recommendation-service/recommendation",

@@ -1,6 +1,7 @@
 using AmourLink.Recommendation.Data.Context;
 using AmourLink.Recommendation.Data.Entities;
 using AmourLink.Recommendation.DTO;
+using AmourLink.Recommendation.Infrastructure;
 using AmourLink.Recommendation.Infrastructure.Pagination;
 using AmourLink.Recommendation.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +19,11 @@ namespace AmourLink.Recommendation.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<MemberDto>>> Test([FromQuery]PaginationParams paginationParams)
+        public async Task<ActionResult<ApiResponse>> Test([FromQuery]PaginationParams paginationParams)
         {
             var users = await _service.GetPagedFeedAsync(paginationParams);
 
-            return users;
+            return Ok(ApiResponse.Success(users));
         }
     }
 }

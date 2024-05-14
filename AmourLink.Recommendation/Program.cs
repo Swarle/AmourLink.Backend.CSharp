@@ -15,6 +15,8 @@ public class Program
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         });
 
+        builder.Services.Configure<RouteOptions>(opt => opt.LowercaseUrls = true);
+
         builder.Services.AddDataServices(builder.Configuration);
         builder.Services.AddServices();
 
@@ -26,7 +28,7 @@ public class Program
 
         var app = builder.Build();
         
-        if (app.Environment.IsDevelopment())
+        if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Local"))
         {
             app.UseSwagger();
             app.UseSwaggerUI();

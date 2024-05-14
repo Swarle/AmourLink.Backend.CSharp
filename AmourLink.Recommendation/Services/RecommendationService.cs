@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Security.Claims;
 using AmourLink.Recommendation.Data.Entities;
 using AmourLink.Recommendation.DTO;
 using AmourLink.Recommendation.Extensions;
@@ -41,12 +40,6 @@ namespace AmourLink.Recommendation.Services
             var currentUser = await _userRepository.GetFirstOrDefaultAsync(userWithPreferencesAndDetailsSpecification, cancellationToken)
                 ?? throw new HttpException(HttpStatusCode.NotFound, $"User with id: {currentUserId} was not found");
             
-            throw new HttpException(HttpStatusCode.BadRequest, new Dictionary<string, string>()
-            {
-                { "hz", "test" },
-                { "test", "hz" }
-            }, currentUser);
-
             if (currentUser.UserDetails?.LastLocation == null)
                 throw new HttpException(HttpStatusCode.BadRequest,
                     "Operation failed due to lack of information about the user's last location");

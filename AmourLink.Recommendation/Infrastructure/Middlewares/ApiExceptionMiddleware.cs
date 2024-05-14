@@ -74,7 +74,7 @@ namespace AmourLink.Recommendation.Infrastructure.Middlewares
             //         ex.StackTrace?.ToString())
             //     : new ApiExceptionResponse((HttpStatusCode)context.Response.StatusCode, "Internal Server Error");
 
-            var response = _env.IsDevelopment()
+            var response = _env.IsDevelopment() || _env.IsEnvironment("Local")
                 ? ApiResponse.Exception(ex)
                 : new ApiResponse(ResponseType.HttpError, ex.Message);
             
