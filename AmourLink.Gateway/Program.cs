@@ -9,7 +9,7 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
         
-        builder.Configuration.AddJsonFile($"ocelot.Local.json", true, true);
+        builder.Configuration.AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", true, true);
         builder.Services.AddOcelot(builder.Configuration);
         builder.Services.AddCors(o =>
             o.AddPolicy("AllowAll", b => b
