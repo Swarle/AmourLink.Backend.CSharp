@@ -5,8 +5,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5001
+          "Host": "amourlink.recommendation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/api/recommendation-service/recommendation",
@@ -16,6 +16,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
+    "BaseUrl": "http://localhost:8080"
   }
 }

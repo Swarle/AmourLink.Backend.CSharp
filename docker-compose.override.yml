@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  amourlink.recommendation:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__DefaultConnectionString=server=host.docker.internal;user=root;password=rootPassword;database=amourlink
+    ports:
+      - "8001:8080"
+  
+  amourlink.gateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+    ports:
+      - "8000:8080"
