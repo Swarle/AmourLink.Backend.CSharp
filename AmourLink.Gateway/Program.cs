@@ -13,7 +13,7 @@ public class Program
         builder.Services.AddOcelot(builder.Configuration);
         builder.Services.AddCors(o =>
             o.AddPolicy("AllowAll", b => b
-                .WithOrigins("http://localhost:4200")
+                .WithOrigins("https://localhost:4200")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials()

@@ -26,7 +26,7 @@ namespace AmourLink.Recommendation.Services
         }
 
 
-        public async Task<List<MemberDto>> GetPagedFeedAsync(PaginationParams paginationParams, CancellationToken cancellationToken = default)
+        public async Task<MemberDto> GetPagedFeedAsync(PaginationParams paginationParams, CancellationToken cancellationToken = default)
         {
             var currentUserId = _context.User.GetUserId();
             
@@ -52,15 +52,18 @@ namespace AmourLink.Recommendation.Services
                 currentUser.UserDetails.LastLocation.X, currentUser.UserPreference.DistanceRange,
                 currentUser.Rating, currentUserId);
             
-            var users = await _userRepository.GetPagedListAsync(userWithProfileSpecification,
-                paginationParams.PageNumber, paginationParams.PageSize, cancellationToken);
+            var pagedUser = await _userRepository.GetPagedEntityAsync(userWithProfileSpecification,
+                paginationParams.PageNumber, cancellationToken);
+
+            if (pagedUser.Result == null)
+                throw new HttpException(HttpStatusCode.NotFound, "Can`t find any users for this preferences");
             
-            _context.Response.AddPaginationHeader(users.CurrentPage,
-                users.TotalPages, users.PageSize, users.TotalCount);
+            _context.Response.AddPaginationHeader(pagedUser.CurrentPage,
+                pagedUser.TotalPages, pagedUser.TotalCount);
             
-            var userDtos = _mapper.Map<List<MemberDto>>(users);
+            var userDto = _mapper.Map<MemberDto>(pagedUser.Result);
             
-            return userDtos;
+            return userDto;
         }
     }
 }

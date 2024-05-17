@@ -14,6 +14,9 @@ public interface IRepository<TEntity> where TEntity : Entity
 
     Task<PagedList<TEntity>> GetPagedListAsync(BaseSpecification<TEntity> specification, int? pageNumber,
         int? pageSize = null, CancellationToken cancellationToken = default);
+    
+    Task<PagedEntity<TEntity>> GetPagedEntityAsync(BaseSpecification<TEntity> specification, int? pageNumber,
+        CancellationToken cancellationToken = default);
 
     Task<TEntity?> GetFirstOrDefaultAsync(BaseSpecification<TEntity> specification,
         CancellationToken cancellationToken = default);

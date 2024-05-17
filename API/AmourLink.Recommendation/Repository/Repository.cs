@@ -40,8 +40,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
         IQueryable<TEntity> query = DbSet;
         
-        
-        
         var totalCollectionCount = await query.ApplySpecification(specification).CountAsync(cancellationToken);
 
         var page = pageNumber ?? 1;
@@ -54,6 +52,26 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
         var data = await query.ToListAsync(cancellationToken);
 
         return new PagedList<TEntity>(data, totalCollectionCount, page, size);
+    }
+    
+    public async Task<PagedEntity<TEntity>> GetPagedEntityAsync(BaseSpecification<TEntity> specification, int? pageNumber = 1,
+        CancellationToken cancellationToken = default)
+    {
+        IQueryable<TEntity> query = DbSet;
+
+        const int pageSize = 1;
+        
+        var totalCollectionCount = await query.ApplySpecification(specification).CountAsync(cancellationToken);
+
+        var page = pageNumber ?? 1;
+
+        query = query.ApplySpecification(specification)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize);
+        
+        var data = await query.FirstOrDefaultAsync(cancellationToken);
+
+        return new PagedEntity<TEntity>(data, totalCollectionCount, page);
     }
 
     public async Task<TEntity?> GetFirstOrDefaultAsync(BaseSpecification<TEntity> specification, CancellationToken cancellationToken = default)

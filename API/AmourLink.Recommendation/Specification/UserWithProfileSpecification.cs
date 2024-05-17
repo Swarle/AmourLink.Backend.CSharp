@@ -30,6 +30,6 @@ public sealed class UserWithProfileSpecification : BaseSpecification<User>
                 || Math.Abs(e.Rating - (userRating + RatingRangeFilter.Range)) <= RatingRangeFilter.Range);
         
         AddOrderBy(e => e.UserDetails!.LastLocation!.Distance(userCords) * staticNum);
-        AddThenBy(e => e.Rating);
+        AddThenBy(e => Math.Abs(e.Rating - userRating));
     }
 }
