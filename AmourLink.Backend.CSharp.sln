@@ -3,19 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmourLink.Gateway", "AmourLink.Gateway\AmourLink.Gateway.csproj", "{F7DBF823-0B09-4C2C-BDB0-B63207FB9D0D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestService", "TestService\TestService.csproj", "{AAE19AA5-8855-4816-A328-FBC5E1F0E6BF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Somework to do", "Somework to do\Somework to do.csproj", "{EA765458-D84B-450F-AFE7-28ADF8FF9CC3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F51565DE-DE51-4A78-A0CD-31E16CED7065}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmourLink.Recommendation", "API\AmourLink.Recommendation\AmourLink.Recommendation.csproj", "{066D1864-119E-4AC9-A33B-ED3FB948FBC6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{8ABA6F18-BAE0-4ABC-8C15-DBB64F92B209}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{8ABA6F18-BAE0-4ABC-8C15-DBB64F92B209}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B866CF5A-770E-419F-92C9-43842A005D81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmourLink.Gateway", "Services\AmourLink.Gateway\AmourLink.Gateway.csproj", "{49F34171-F5DF-4F0E-A1CF-10AF60A6DCD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmourLink.Recommendation", "Services\AmourLink.Recommendation\AmourLink.Recommendation.csproj", "{D63F004E-2C04-4E0C-85B6-BE81B5707F20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Somework to do", "Test\Somework to do\Somework to do.csproj", "{8AA58633-50E6-460A-AFD4-D47A8224E72F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestService", "Test\TestService\TestService.csproj", "{97B1C03E-A75C-41E2-9230-89C744BF07D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{D19E8D64-A536-4EDB-9EFB-8C6E997CA8DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmourLink.Infrastructure", "Infrastructure\AmourLink.Infrastructure\AmourLink.Infrastructure.csproj", "{71F9DBE0-63F6-4C29-90F0-E5788FDF5434}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,33 +27,39 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F7DBF823-0B09-4C2C-BDB0-B63207FB9D0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7DBF823-0B09-4C2C-BDB0-B63207FB9D0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7DBF823-0B09-4C2C-BDB0-B63207FB9D0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7DBF823-0B09-4C2C-BDB0-B63207FB9D0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AAE19AA5-8855-4816-A328-FBC5E1F0E6BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAE19AA5-8855-4816-A328-FBC5E1F0E6BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AAE19AA5-8855-4816-A328-FBC5E1F0E6BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AAE19AA5-8855-4816-A328-FBC5E1F0E6BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA765458-D84B-450F-AFE7-28ADF8FF9CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA765458-D84B-450F-AFE7-28ADF8FF9CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA765458-D84B-450F-AFE7-28ADF8FF9CC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA765458-D84B-450F-AFE7-28ADF8FF9CC3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{066D1864-119E-4AC9-A33B-ED3FB948FBC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{066D1864-119E-4AC9-A33B-ED3FB948FBC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{066D1864-119E-4AC9-A33B-ED3FB948FBC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{066D1864-119E-4AC9-A33B-ED3FB948FBC6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B866CF5A-770E-419F-92C9-43842A005D81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B866CF5A-770E-419F-92C9-43842A005D81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B866CF5A-770E-419F-92C9-43842A005D81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B866CF5A-770E-419F-92C9-43842A005D81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49F34171-F5DF-4F0E-A1CF-10AF60A6DCD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49F34171-F5DF-4F0E-A1CF-10AF60A6DCD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49F34171-F5DF-4F0E-A1CF-10AF60A6DCD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49F34171-F5DF-4F0E-A1CF-10AF60A6DCD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D63F004E-2C04-4E0C-85B6-BE81B5707F20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D63F004E-2C04-4E0C-85B6-BE81B5707F20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D63F004E-2C04-4E0C-85B6-BE81B5707F20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D63F004E-2C04-4E0C-85B6-BE81B5707F20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AA58633-50E6-460A-AFD4-D47A8224E72F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AA58633-50E6-460A-AFD4-D47A8224E72F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AA58633-50E6-460A-AFD4-D47A8224E72F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AA58633-50E6-460A-AFD4-D47A8224E72F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97B1C03E-A75C-41E2-9230-89C744BF07D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97B1C03E-A75C-41E2-9230-89C744BF07D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97B1C03E-A75C-41E2-9230-89C744BF07D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97B1C03E-A75C-41E2-9230-89C744BF07D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71F9DBE0-63F6-4C29-90F0-E5788FDF5434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71F9DBE0-63F6-4C29-90F0-E5788FDF5434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71F9DBE0-63F6-4C29-90F0-E5788FDF5434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71F9DBE0-63F6-4C29-90F0-E5788FDF5434}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{AAE19AA5-8855-4816-A328-FBC5E1F0E6BF} = {F51565DE-DE51-4A78-A0CD-31E16CED7065}
-		{EA765458-D84B-450F-AFE7-28ADF8FF9CC3} = {F51565DE-DE51-4A78-A0CD-31E16CED7065}
-		{066D1864-119E-4AC9-A33B-ED3FB948FBC6} = {8ABA6F18-BAE0-4ABC-8C15-DBB64F92B209}
+		{49F34171-F5DF-4F0E-A1CF-10AF60A6DCD9} = {8ABA6F18-BAE0-4ABC-8C15-DBB64F92B209}
+		{D63F004E-2C04-4E0C-85B6-BE81B5707F20} = {8ABA6F18-BAE0-4ABC-8C15-DBB64F92B209}
+		{8AA58633-50E6-460A-AFD4-D47A8224E72F} = {F51565DE-DE51-4A78-A0CD-31E16CED7065}
+		{97B1C03E-A75C-41E2-9230-89C744BF07D9} = {F51565DE-DE51-4A78-A0CD-31E16CED7065}
+		{71F9DBE0-63F6-4C29-90F0-E5788FDF5434} = {D19E8D64-A536-4EDB-9EFB-8C6E997CA8DB}
 	EndGlobalSection
 EndGlobal
