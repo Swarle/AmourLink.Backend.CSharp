@@ -9,10 +9,10 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["API/AmourLink.Recommendation/AmourLink.Recommendation.csproj", "API/AmourLink.Recommendation/"]
-RUN dotnet restore "./API/AmourLink.Recommendation/AmourLink.Recommendation.csproj"
+COPY ["Services/AmourLink.Recommendation/AmourLink.Recommendation.csproj", "Services/AmourLink.Recommendation/"]
+RUN dotnet restore "./Services/AmourLink.Recommendation/AmourLink.Recommendation.csproj"
 COPY . .
-WORKDIR "/src/API/AmourLink.Recommendation"
+WORKDIR "/src/Services/AmourLink.Recommendation"
 RUN dotnet build "./AmourLink.Recommendation.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
