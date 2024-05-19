@@ -1,5 +1,5 @@
-﻿using AmourLink.Recommendation.Data.Context;
-using AmourLink.Recommendation.Infrastructure.StaticConstants;
+﻿using AmourLink.Infrastructure.StaticConstants;
+using AmourLink.Recommendation.Data.Context;
 using AmourLink.Recommendation.Repository;
 using Microsoft.EntityFrameworkCore;
 

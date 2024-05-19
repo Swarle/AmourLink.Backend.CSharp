@@ -1,6 +1,7 @@
-﻿using AmourLink.Recommendation.Data.Abstract;
-using AmourLink.Recommendation.Infrastructure.Pagination;
-using AmourLink.Recommendation.Specification.Infrastructure;
+﻿using AmourLink.Infrastructure.Data.Abstract;
+using AmourLink.Infrastructure.Pagination;
+using AmourLink.Infrastructure.Specification;
+using AmourLink.Recommendation.Pagination;
 
 namespace AmourLink.Recommendation.Repository;
 

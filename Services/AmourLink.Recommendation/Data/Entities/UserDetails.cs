@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using AmourLink.Recommendation.Data.Abstract;
+using AmourLink.Infrastructure.Data.Abstract;
 using NetTopologySuite.Geometries;
 
 namespace AmourLink.Recommendation.Data.Entities;

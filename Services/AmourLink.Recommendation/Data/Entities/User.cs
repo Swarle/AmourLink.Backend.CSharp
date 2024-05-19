@@ -1,4 +1,4 @@
-﻿using AmourLink.Recommendation.Data.Abstract;
+﻿using AmourLink.Infrastructure.Data.Abstract;
 
 namespace AmourLink.Recommendation.Data.Entities;
 

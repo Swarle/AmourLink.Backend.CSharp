@@ -1,5 +1,5 @@
 ﻿using AmourLink.Recommendation.DTO;
-using AmourLink.Recommendation.Infrastructure.Pagination;
+using AmourLink.Recommendation.Pagination;
 
 namespace AmourLink.Recommendation.Services.Interfaces;
 

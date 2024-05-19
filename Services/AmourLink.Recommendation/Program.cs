@@ -1,6 +1,7 @@
+using AmourLink.Infrastructure.Extensions;
+using AmourLink.Infrastructure.Middlewares;
 using AmourLink.Recommendation.Extensions;
 using AmourLink.Recommendation.Extensions.ServiceExtension;
-using AmourLink.Recommendation.Infrastructure.Middlewares;
 
 namespace AmourLink.Recommendation;
 
@@ -24,7 +25,7 @@ public class Program
         builder.Services.AddAuthorization();
         
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGenConfigured();
+        builder.Services.AddSwaggerGenConfigured("AmourLink.Recommendation");
 
         var app = builder.Build();
         

@@ -1,12 +1,12 @@
 ﻿using System.Net;
+using AmourLink.Infrastructure.Extensions;
+using AmourLink.Infrastructure.ResponseHandling;
 using AmourLink.Recommendation.Data.Entities;
 using AmourLink.Recommendation.DTO;
-using AmourLink.Recommendation.Extensions;
-using AmourLink.Recommendation.Infrastructure;
-using AmourLink.Recommendation.Infrastructure.Pagination;
+using AmourLink.Recommendation.Pagination;
 using AmourLink.Recommendation.Repository;
 using AmourLink.Recommendation.Services.Interfaces;
-using AmourLink.Recommendation.Specification;
+using AmourLink.Recommendation.Specifications;
 using AutoMapper;
 
 namespace AmourLink.Recommendation.Services

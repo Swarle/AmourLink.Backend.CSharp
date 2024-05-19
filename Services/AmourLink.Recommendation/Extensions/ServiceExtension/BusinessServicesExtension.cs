@@ -1,4 +1,4 @@
-﻿using AmourLink.Recommendation.Infrastructure;
+﻿using AmourLink.Recommendation.Mapper;
 using AmourLink.Recommendation.Services;
 using AmourLink.Recommendation.Services.Interfaces;
 

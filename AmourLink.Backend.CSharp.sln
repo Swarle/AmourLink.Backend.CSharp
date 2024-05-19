@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Somework to do", "Test\Some
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestService", "Test\TestService\TestService.csproj", "{97B1C03E-A75C-41E2-9230-89C744BF07D9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{D19E8D64-A536-4EDB-9EFB-8C6E997CA8DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmourLink.Infrastructure", "Infrastructure\AmourLink.Infrastructure\AmourLink.Infrastructure.csproj", "{71F9DBE0-63F6-4C29-90F0-E5788FDF5434}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,10 @@ Global
 		{97B1C03E-A75C-41E2-9230-89C744BF07D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97B1C03E-A75C-41E2-9230-89C744BF07D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97B1C03E-A75C-41E2-9230-89C744BF07D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71F9DBE0-63F6-4C29-90F0-E5788FDF5434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71F9DBE0-63F6-4C29-90F0-E5788FDF5434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71F9DBE0-63F6-4C29-90F0-E5788FDF5434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71F9DBE0-63F6-4C29-90F0-E5788FDF5434}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,5 +60,6 @@ Global
 		{D63F004E-2C04-4E0C-85B6-BE81B5707F20} = {8ABA6F18-BAE0-4ABC-8C15-DBB64F92B209}
 		{8AA58633-50E6-460A-AFD4-D47A8224E72F} = {F51565DE-DE51-4A78-A0CD-31E16CED7065}
 		{97B1C03E-A75C-41E2-9230-89C744BF07D9} = {F51565DE-DE51-4A78-A0CD-31E16CED7065}
+		{71F9DBE0-63F6-4C29-90F0-E5788FDF5434} = {D19E8D64-A536-4EDB-9EFB-8C6E997CA8DB}
 	EndGlobalSection
 EndGlobal

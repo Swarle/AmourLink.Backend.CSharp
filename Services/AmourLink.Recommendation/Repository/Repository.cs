@@ -1,8 +1,10 @@
-﻿using AmourLink.Recommendation.Data.Abstract;
+﻿using AmourLink.Infrastructure.Data.Abstract;
+using AmourLink.Infrastructure.Extensions;
+using AmourLink.Infrastructure.Pagination;
+using AmourLink.Infrastructure.Specification;
 using AmourLink.Recommendation.Data.Context;
 using AmourLink.Recommendation.Extensions;
-using AmourLink.Recommendation.Infrastructure.Pagination;
-using AmourLink.Recommendation.Specification.Infrastructure;
+using AmourLink.Recommendation.Pagination;
 using Microsoft.EntityFrameworkCore;
 
 namespace AmourLink.Recommendation.Repository;

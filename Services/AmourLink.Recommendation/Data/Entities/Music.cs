@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using AmourLink.Recommendation.Data.Abstract;
+using AmourLink.Infrastructure.Data.Abstract;
 using Microsoft.EntityFrameworkCore;
 
 namespace AmourLink.Recommendation.Data.Entities;
