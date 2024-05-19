@@ -13,6 +13,34 @@
       "UpstreamHttpMethod": [
         "GET"
       ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/security-service/users/add",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.security",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/security-service/users/add",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/security-service/authenticate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.security",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/security-service/authenticate",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
     }
   ],
   "GlobalConfiguration": {
