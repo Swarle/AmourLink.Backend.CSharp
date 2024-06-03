@@ -14,4 +14,4 @@ services:
       dockerfile: AmourLink.Backend.CSharp/AmourLink.Gateway/Dockerfile
       
   amourlink.security:
-    image: danyloz/amourlink-java-security-service:1.5
+    image: danyloz/amourlink-java-security-service:1.6
