@@ -19,7 +19,7 @@ public class LanguageConfiguration : IEntityTypeConfiguration<Language>
         builder.Property(e => e.LanguageName)
             .HasMaxLength(45);
 
-        builder.HasMany(d => d.UserDetailsUserDetails)
+        builder.HasMany(d => d.UserDetails)
             .WithMany(p => p.Languages)
             .UsingEntity("language_user_details",
                 l => l.HasOne(typeof(UserDetails))

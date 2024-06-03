@@ -25,4 +25,5 @@ public class UserDetails : Entity
     public ICollection<Picture> Pictures { get; set; } = [];
     public required User User { get; set; }
     public ICollection<Language> Languages { get; set; } = [];
+    public ICollection<Tag> Tags { get; set; } = [];
 }

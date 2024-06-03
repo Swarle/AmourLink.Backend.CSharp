@@ -16,8 +16,8 @@ public class PictureConfiguration : IEntityTypeConfiguration<Picture>
         builder.Property(e => e.Id)
             .HasColumnName("picture_id")
             .HasColumnType("binary(16)");
-        builder.Property(e => e.AddedTime)
-            .HasColumnType("timestamp");
+        builder.Property(e => e.TimeAdded)
+            .HasColumnType("datetime(6)");
         builder.Property(e => e.PictureUrl)
             .HasMaxLength(255);
         builder.Property(e => e.UserDetailsId)
