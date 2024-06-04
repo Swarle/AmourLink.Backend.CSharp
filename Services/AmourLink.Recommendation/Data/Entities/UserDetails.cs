@@ -23,7 +23,8 @@ public class UserDetails : Entity
     public ICollection<Hobbie> Hobbies { get; set; } = [];
     public Music? Music { get; set; }
     public ICollection<Picture> Pictures { get; set; } = [];
-    public required User User { get; set; }
+    public User User { get; set; } = null!;
     public ICollection<Language> Languages { get; set; } = [];
     public ICollection<Tag> Tags { get; set; } = [];
+    public ICollection<InfoUserDetails> Infos { get; set; } = [];
 }

@@ -22,7 +22,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasColumnType("timestamp");
         builder.Property(e => e.Email)
             .HasMaxLength(45);
-        builder.Property(typeof(string), "password")
+        builder.Property(e => e.Password)
+            .HasColumnName("password")
             .HasMaxLength(255)
             .IsRequired();
     }

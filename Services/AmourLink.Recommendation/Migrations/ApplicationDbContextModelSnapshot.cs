@@ -79,6 +79,76 @@ namespace AmourLink.Recommendation.Migrations
                     b.ToTable("hobbie", (string)null);
                 });
 
+            modelBuilder.Entity("AmourLink.Recommendation.Data.Entities.Info", b =>
+                {
+                    b.Property<byte[]>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("binary(16)")
+                        .HasColumnName("info_id");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("title");
+
+                    b.HasKey("Id")
+                        .HasName("PRIMARY");
+
+                    b.ToTable("info", (string)null);
+                });
+
+            modelBuilder.Entity("AmourLink.Recommendation.Data.Entities.InfoAnswer", b =>
+                {
+                    b.Property<byte[]>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("binary(16)")
+                        .HasColumnName("info_answer_id");
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("answer");
+
+                    b.Property<byte[]>("InfoId")
+                        .IsRequired()
+                        .HasColumnType("binary(16)")
+                        .HasColumnName("info_id");
+
+                    b.HasKey("Id")
+                        .HasName("PRIMARY");
+
+                    b.HasIndex("InfoId")
+                        .HasDatabaseName("ix_info_answer_info_id");
+
+                    b.ToTable("info_answer", (string)null);
+                });
+
+            modelBuilder.Entity("AmourLink.Recommendation.Data.Entities.InfoUserDetails", b =>
+                {
+                    b.Property<byte[]>("InfoId")
+                        .HasColumnType("binary(16)")
+                        .HasColumnName("info_id");
+
+                    b.Property<byte[]>("AnswerId")
+                        .HasColumnType("binary(16)")
+                        .HasColumnName("info_answer_id");
+
+                    b.Property<byte[]>("UserId")
+                        .HasColumnType("binary(16)")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("InfoId", "AnswerId", "UserId")
+                        .HasName("PRIMARY");
+
+                    b.HasIndex("AnswerId")
+                        .HasDatabaseName("ix_info_details_info_answer_id");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_info_details_user_id");
+
+                    b.ToTable("info_details", (string)null);
+                });
+
             modelBuilder.Entity("AmourLink.Recommendation.Data.Entities.Language", b =>
                 {
                     b.Property<byte[]>("Id")
@@ -375,6 +445,48 @@ namespace AmourLink.Recommendation.Migrations
                     b.Navigation("UserDetails");
                 });
 
+            modelBuilder.Entity("AmourLink.Recommendation.Data.Entities.InfoAnswer", b =>
+                {
+                    b.HasOne("AmourLink.Recommendation.Data.Entities.Info", "Info")
+                        .WithMany("Answers")
+                        .HasForeignKey("InfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_info_answer_info_info_id");
+
+                    b.Navigation("Info");
+                });
+
+            modelBuilder.Entity("AmourLink.Recommendation.Data.Entities.InfoUserDetails", b =>
+                {
+                    b.HasOne("AmourLink.Recommendation.Data.Entities.InfoAnswer", "InfoAnswer")
+                        .WithMany("InfoUserDetails")
+                        .HasForeignKey("AnswerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_info_details_info_answer_info_answer_id");
+
+                    b.HasOne("AmourLink.Recommendation.Data.Entities.Info", "Info")
+                        .WithMany("InfoUserDetails")
+                        .HasForeignKey("InfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_info_details_info_info_id");
+
+                    b.HasOne("AmourLink.Recommendation.Data.Entities.UserDetails", "UserDetails")
+                        .WithMany("Infos")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_info_details_user_details_user_id");
+
+                    b.Navigation("Info");
+
+                    b.Navigation("InfoAnswer");
+
+                    b.Navigation("UserDetails");
+                });
+
             modelBuilder.Entity("AmourLink.Recommendation.Data.Entities.Picture", b =>
                 {
                     b.HasOne("AmourLink.Recommendation.Data.Entities.UserDetails", "UserDetails")
@@ -461,6 +573,18 @@ namespace AmourLink.Recommendation.Migrations
                     b.Navigation("UserDetails");
                 });
 
+            modelBuilder.Entity("AmourLink.Recommendation.Data.Entities.Info", b =>
+                {
+                    b.Navigation("Answers");
+
+                    b.Navigation("InfoUserDetails");
+                });
+
+            modelBuilder.Entity("AmourLink.Recommendation.Data.Entities.InfoAnswer", b =>
+                {
+                    b.Navigation("InfoUserDetails");
+                });
+
             modelBuilder.Entity("AmourLink.Recommendation.Data.Entities.Music", b =>
                 {
                     b.Navigation("UserDetails");
@@ -476,6 +600,8 @@ namespace AmourLink.Recommendation.Migrations
             modelBuilder.Entity("AmourLink.Recommendation.Data.Entities.UserDetails", b =>
                 {
                     b.Navigation("Hobbies");
+
+                    b.Navigation("Infos");
 
                     b.Navigation("Pictures");
                 });
