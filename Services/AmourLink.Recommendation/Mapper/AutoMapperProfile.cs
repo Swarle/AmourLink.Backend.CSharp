@@ -16,6 +16,8 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.Hobbies, opt =>
                 opt.MapFrom(src => src.UserDetails!.Hobbies.Select(h => h.HobbieName).ToList()))
             .ForMember(dest => dest.Location, opt => 
-                opt.MapFrom(src => new LocationDto{Longitude = src.UserDetails!.LastLocation!.X, Latitude = src.UserDetails.LastLocation.Y}));
+                opt.MapFrom(src => new LocationDto{Longitude = src.UserDetails!.LastLocation!.X, Latitude = src.UserDetails.LastLocation.Y}))
+            .ForMember(src => src.Tags, opt =>
+                opt.MapFrom(dest => dest.UserDetails!.Tags.Select(t => t.TagName).ToList()));
     }
 }

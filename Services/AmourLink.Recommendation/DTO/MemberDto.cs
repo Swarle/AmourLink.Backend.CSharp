@@ -16,4 +16,5 @@ public class MemberDto
     public DegreeDto? Degree { get; set; }
     public List<PictureDto> Pictures { get; set; } = [];
     public List<string> Hobbies = [];
+    public List<string> Tags = [];
 }

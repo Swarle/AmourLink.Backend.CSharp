@@ -18,8 +18,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(e => e.Id)
             .HasColumnName("user_id")
             .HasColumnType("binary(16)");
-        builder.Property(e => e.CreatedTime)
-            .HasColumnType("timestamp");
+        builder.Property(e => e.CreatedAt)
+            .HasColumnType("datetime(6)");
+        //TODO: Change to timestamp
         builder.Property(e => e.Email)
             .HasMaxLength(45);
         builder.Property(e => e.Password)

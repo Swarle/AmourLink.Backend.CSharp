@@ -20,7 +20,7 @@ public static class AuthenticationServicesExtension
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = false,
                     IssuerSigningKey =
-                        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration[SD.TokenKey]!)),
+                        new SymmetricSecurityKey(Convert.FromBase64String(configuration[SD.TokenKey]!)),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
