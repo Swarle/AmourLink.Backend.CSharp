@@ -19,5 +19,8 @@ public class AutoMapperProfile : Profile
                 opt.MapFrom(src => new LocationDto{Longitude = src.UserDetails!.LastLocation!.X, Latitude = src.UserDetails.LastLocation.Y}))
             .ForMember(src => src.Tags, opt =>
                 opt.MapFrom(dest => dest.UserDetails!.Tags.Select(t => t.TagName).ToList()));
+
+        CreateMap<Preference, PreferenceDto>();
+        CreateMap<UpdatePreferenceDto, Preference>();
     }
 }

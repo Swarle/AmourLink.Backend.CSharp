@@ -13,6 +13,7 @@ public static class BusinessServicesExtension
         services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
         
         services.AddScoped<IRecommendationService,RecommendationService>();
+        services.AddScoped<IPreferenceService, PreferenceService>();
         
         return services;
     }

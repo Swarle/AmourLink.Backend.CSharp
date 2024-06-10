@@ -15,3 +15,23 @@ services:
       
   amourlink.security:
     image: danyloz/amourlink-java-security-service:1.7
+    
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+
+  broker:
+    image: wurstmeister/kafka
+    hostname: broker
+    depends_on:
+      - zookeeper
+    ports:
+      - "3002:3002"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: 'PLAINTEXT://0.0.0.0:3002'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://localhost:3002'
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
