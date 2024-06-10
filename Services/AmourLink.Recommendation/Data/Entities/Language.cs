@@ -8,5 +8,5 @@ public class Language : Entity
 {
     public required string LanguageName { get; set; }
     
-    public ICollection<UserDetails> UserDetailsUserDetails { get; set; } = [];
+    public ICollection<UserDetails> UserDetails { get; set; } = [];
 }

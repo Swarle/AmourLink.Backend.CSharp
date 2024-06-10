@@ -14,12 +14,9 @@ public class HobbieConfiguration : IEntityTypeConfiguration<Hobbie>
         builder.ToTable("hobbie");
         
         builder.Property(e => e.Id)
-            .HasColumnName("hobbie_id")
-            .HasColumnType("binary(16)");
+            .HasColumnName("hobbie_id");
         builder.Property(e => e.HobbieName)
             .HasMaxLength(45);
-        builder.Property(e => e.UserDetailsId)
-            .HasColumnType("binary(16)");;
 
         builder.HasOne(d => d.UserDetails)
             .WithMany(p => p.Hobbies)

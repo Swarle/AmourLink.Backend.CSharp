@@ -16,13 +16,14 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasIndex(e => e.Email, "email_UNIQUE").IsUnique();
 
         builder.Property(e => e.Id)
-            .HasColumnName("user_id")
-            .HasColumnType("binary(16)");
-        builder.Property(e => e.CreatedTime)
-            .HasColumnType("timestamp");
+            .HasColumnName("user_id");
+        builder.Property(e => e.CreatedAt)
+            .HasColumnType("datetime(6)");
+        //TODO: Change to timestamp
         builder.Property(e => e.Email)
             .HasMaxLength(45);
-        builder.Property(typeof(string), "password")
+        builder.Property(e => e.Password)
+            .HasColumnName("password")
             .HasMaxLength(255)
             .IsRequired();
     }

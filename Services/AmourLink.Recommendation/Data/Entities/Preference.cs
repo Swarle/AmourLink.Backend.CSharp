@@ -9,6 +9,6 @@ public class Preference : Entity
     public Guid UserId { get; set; }
     public required string Gender { get; set; }
     public int DistanceRange { get; set; }
-    
-    public required User User { get; set; }
+
+    public User User { get; set; } = null!;
 }

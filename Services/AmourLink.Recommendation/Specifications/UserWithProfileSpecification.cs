@@ -17,6 +17,7 @@ public sealed class UserWithProfileSpecification : BaseSpecification<User>
         AddInclude($"{nameof(UserDetails)}.{nameof(UserDetails.Hobbies)}");
         AddInclude($"{nameof(UserDetails)}.{nameof(UserDetails.Languages)}");
         AddInclude($"{nameof(UserDetails)}.{nameof(UserDetails.Pictures)}");
+        AddInclude($"{nameof(UserDetails)}.{nameof(UserDetails.Tags)}");
 
         var userCords = new Point(userLongitude, userLatitude);
         var rangeDegrees = range / staticNum;

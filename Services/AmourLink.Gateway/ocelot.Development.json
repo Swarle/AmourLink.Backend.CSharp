@@ -29,7 +29,7 @@
       ]
     },
     {
-      "DownstreamPathTemplate": "/api/security-service/authenticate",
+      "DownstreamPathTemplate": "/login",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -37,7 +37,21 @@
           "Port": 8081
         }
       ],
-      "UpstreamPathTemplate": "/api/security-service/authenticate",
+      "UpstreamPathTemplate": "/api/security-service/login/",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/login/google",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.security",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/security-service/login/google",
       "UpstreamHttpMethod": [
         "POST"
       ]
