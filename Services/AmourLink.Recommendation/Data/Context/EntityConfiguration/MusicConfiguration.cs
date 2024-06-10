@@ -13,8 +13,7 @@ public class MusicConfiguration : IEntityTypeConfiguration<Music>
         builder.ToTable("music");
         
         builder.Property(e => e.Id)
-            .HasColumnName("music_id")
-            .HasColumnType("binary(16)");;
+            .HasColumnName("music_id");
         builder.Property(e => e.ArtistName)
             .HasMaxLength(200);
         builder.Property(e => e.SpotifyId)

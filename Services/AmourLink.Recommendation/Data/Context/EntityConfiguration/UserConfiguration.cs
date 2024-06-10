@@ -16,8 +16,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasIndex(e => e.Email, "email_UNIQUE").IsUnique();
 
         builder.Property(e => e.Id)
-            .HasColumnName("user_id")
-            .HasColumnType("binary(16)");
+            .HasColumnName("user_id");
         builder.Property(e => e.CreatedAt)
             .HasColumnType("datetime(6)");
         //TODO: Change to timestamp

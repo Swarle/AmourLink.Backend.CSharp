@@ -14,8 +14,7 @@ public class TagConfiguration : IEntityTypeConfiguration<Tag>
         builder.ToTable("tag");
         
         builder.Property(e => e.Id)
-            .HasColumnName("tag_id")
-            .HasColumnType("binary(16)");
+            .HasColumnName("tag_id");
         
         builder.HasMany(d => d.UserDetails)
             .WithMany(p => p.Tags)

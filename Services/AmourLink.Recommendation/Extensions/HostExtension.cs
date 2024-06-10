@@ -39,7 +39,7 @@ public static class HostExtension
                     Nationality = f.Lorem.Word(),
                     Gender = ((Name.Gender)f.PickRandom(0, 1)).ToString(),
                     User = u,
-                    LastLocation = new Point(f.Random.Double(22.14d,40.23d),f.Random.Double(44.38d, 52.38d)),
+                    LastLocation = new Point(f.Random.Double(50.30d,50.55d),f.Random.Double(30.25d, 30.75d)),
                     Tags = new List<Tag>(new Faker<Tag>()
                         .RuleFor(t => t.TagName, f => f.Lorem.Word())
                         .Generate(14)),
@@ -86,7 +86,7 @@ public static class HostExtension
             .RuleFor(u => u.Password, f => "$2a$10$Kw9CVrUSW3SMIOQoY4l35ujBvRitDyP2nprNMFf6mhXoj77056.my")
             .RuleFor(u => u.Email, f => "bogdanvalman@gmail.com")
             .RuleFor(u => u.AccountType, "GOOGLE")
-            .RuleFor(u => u.Rating, f => f.Random.Int(600, 3000))
+            .RuleFor(u => u.Rating, f => 1500)
             .RuleFor(u => u.CreatedAt, f => f.Date.Past())
             .RuleFor(u => u.UserDetails, (f, u) =>
                 new UserDetails
@@ -129,7 +129,7 @@ public static class HostExtension
                     MinAge = 18,
                     MaxAge = 44,
                     Gender = "Female",
-                    DistanceRange = 25,
+                    DistanceRange = 100,
                 })
             .Generate();
     }

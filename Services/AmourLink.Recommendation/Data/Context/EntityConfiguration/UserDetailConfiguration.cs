@@ -13,12 +13,10 @@ public class UserDetailConfiguration : IEntityTypeConfiguration<UserDetails>
         builder.ToTable("user_details");
         
         builder.Property(e => e.Id)
-            .HasColumnName("user_id")
-            .HasColumnType("binary(16)");
+            .HasColumnName("user_id");
         builder.Property(e => e.LastName)
             .HasMaxLength(45);
-        builder.Property(e => e.MusicId)
-            .HasColumnType("binary(16)");
+        builder.Property(e => e.MusicId);
         builder.Property(e => e.Nationality)
             .HasMaxLength(45);
         builder.Property(e => e.Occupation)

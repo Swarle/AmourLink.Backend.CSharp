@@ -14,14 +14,11 @@ public class PictureConfiguration : IEntityTypeConfiguration<Picture>
         builder.ToTable("picture");
         
         builder.Property(e => e.Id)
-            .HasColumnName("picture_id")
-            .HasColumnType("binary(16)");
+            .HasColumnName("picture_id");
         builder.Property(e => e.TimeAdded)
             .HasColumnType("datetime(6)");
         builder.Property(e => e.PictureUrl)
             .HasMaxLength(255);
-        builder.Property(e => e.UserDetailsId)
-            .HasColumnType("binary(16)");
 
         builder.HasOne(d => d.UserDetails)
             .WithMany(p => p.Pictures)

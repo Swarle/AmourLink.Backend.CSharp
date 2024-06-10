@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
+using AmourLink.Infrastructure.Extensions;
 using AmourLink.Recommendation.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace AmourLink.Recommendation.Data.Context;
 
@@ -31,5 +33,9 @@ public class ApplicationDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(ApplicationDbContext))!);
+
+        modelBuilder.SetValueConverterForGuids();
+        modelBuilder.SetColumnTypeForGuids();
     }
 }
+

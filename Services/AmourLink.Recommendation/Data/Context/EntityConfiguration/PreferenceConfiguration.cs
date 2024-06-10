@@ -13,8 +13,7 @@ public class PreferenceConfiguration : IEntityTypeConfiguration<Preference>
         builder.ToTable("preference");
 
         builder.Property(e => e.Id)
-            .HasColumnName("preference_id")
-            .HasColumnType("binary(16)");
+            .HasColumnName("preference_id");
         builder.Property(e => e.Gender)
             .HasMaxLength(45);
         

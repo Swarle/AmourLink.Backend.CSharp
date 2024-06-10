@@ -14,8 +14,7 @@ public class DegreeConfiguration : IEntityTypeConfiguration<Degree>
         builder.ToTable("degree");
         
         builder.Property(e => e.Id)
-            .HasColumnName("degree_id")
-            .HasColumnType("binary(16)");
+            .HasColumnName("degree_id");
         builder.Property(e => e.DegreeType)
             .HasMaxLength(45);
         builder.Property(e => e.SchoolName)

@@ -14,14 +14,11 @@ public class InfoProfileConfiguration : IEntityTypeConfiguration<InfoUserDetails
         builder.ToTable("info_details");
         
         builder.Property(e => e.InfoId)
-            .HasColumnName("info_id")
-            .HasColumnType("binary(16)");
+            .HasColumnName("info_id");
         builder.Property(e => e.AnswerId)
-            .HasColumnName("info_answer_id")
-            .HasColumnType("binary(16)");
+            .HasColumnName("info_answer_id");
         builder.Property(e => e.UserId)
-            .HasColumnName("user_id")
-            .HasColumnType("binary(16)");
+            .HasColumnName("user_id");
 
         builder.HasOne(e => e.Info)
             .WithMany(e => e.InfoUserDetails)

@@ -14,8 +14,7 @@ public class InfoConfiguration : IEntityTypeConfiguration<Info>
         builder.ToTable("info");
 
         builder.Property(e => e.Id)
-            .HasColumnName("info_id")
-            .HasColumnType("binary(16)");
+            .HasColumnName("info_id");
         
         
     }
