@@ -82,4 +82,14 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
         return await query.ApplySpecification(specification).FirstOrDefaultAsync(cancellationToken);
     }
+
+    public async Task UpdateAsync(TEntity entity)
+    {
+        await Task.Run(() => DbSet.Update(entity));
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await _context.SaveChangesAsync();
+    }
 }

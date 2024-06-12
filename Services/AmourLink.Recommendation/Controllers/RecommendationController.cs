@@ -11,26 +11,19 @@ namespace AmourLink.Recommendation.Controllers
     public class RecommendationController : BaseApiController
     {
         private readonly IRecommendationService _service;
-        private readonly ApplicationDbContext _context;
 
-        public RecommendationController(IRecommendationService service, ApplicationDbContext context)
+        public RecommendationController(IRecommendationService service)
         {
             _service = service;
-            _context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiResponse>> Test([FromQuery]PaginationParams paginationParams)
+        public async Task<ActionResult<ApiResponse>> GetPagedRecommendationsAsync([FromQuery]PaginationParams paginationParams)
         {
             var users = await _service.GetPagedFeedAsync(paginationParams);
 
             return Ok(ApiResponse.Success(users));
         }
-
-        [HttpGet("test")]
-        public async Task<ActionResult<List<User>>> Test1()
-        {
-            return await _context.Users.ToListAsync();
-        }
+        
     }
 }

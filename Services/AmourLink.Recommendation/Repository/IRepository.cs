@@ -22,4 +22,7 @@ public interface IRepository<TEntity> where TEntity : Entity
     Task<TEntity?> GetFirstOrDefaultAsync(BaseSpecification<TEntity> specification,
         CancellationToken cancellationToken = default);
 
+    Task UpdateAsync(TEntity entity);
+    Task SaveChangesAsync();
+
 }
