@@ -50,7 +50,7 @@ public class KafkaConfigurator
         return AddConsumer<Null, string, TContract, THandler, JsonMessageSerializer>(topic, options);
     }
     
-    public KafkaConfigurator AddProducer<TKey, TValue, TContract, TSerializer>()
+    public KafkaConfigurator AddProducer<TKey, TValue, TContract, TSerializer>(KafkaOptions? options = null)
     where TSerializer : IMessageSerializer<TValue>
     {
         _services.AddSingleton<IKafkaProducer<TKey, TValue, TContract>, KafkaProducer<TKey, TValue, TContract>>(
@@ -58,15 +58,15 @@ public class KafkaConfigurator
                 new KafkaProducer<TKey, TValue, TContract>(
                     logger: provider.GetRequiredService<ILogger<KafkaProducer<TKey, TValue, TContract>>>(),
                     provider: provider,
-                    options: provider.GetRequiredService<KafkaOptions>(),
+                    options: options ?? (_options ?? throw new NullReferenceException("KafkaOptions cannot be null")),
                     serializer: ActivatorUtilities.CreateInstance<TSerializer>(provider)));
 
         return this;
     }
     
-    public KafkaConfigurator AddProducer<TContract>()
+    public KafkaConfigurator AddProducer<TContract>(KafkaOptions? options = null)
     {
-        return AddProducer<Null, string, TContract, JsonMessageSerializer>();
+        return AddProducer<Null, string, TContract, JsonMessageSerializer>(options);
     }
     
 

@@ -1,24 +1,32 @@
 ﻿using AmourLink.InternalCommunication.Kafka.Abstract;
+using AmourLink.Swipe.DTO;
 using AmourLink.Swipe.KafkaMessages;
 using AmourLink.Swipe.Services.Interfaces;
-using AutoMapper;
+using AmourLink.Swipe.StaticConstants;
 using Confluent.Kafka;
 
 namespace AmourLink.Swipe.Services;
 
 public class SwipeService : ISwipeService
 {
-    private readonly IMapper _mapper;
-    private readonly IKafkaProducer<Ignore, string, SwipeKafkaMessage> _producer;
+    private readonly IKafkaProducer<Null, string, SwipeKafkaMessage> _producer;
 
-    public SwipeService(IMapper mapper, IKafkaProducer<Ignore, string, SwipeKafkaMessage> producer)
+    public SwipeService(IKafkaProducer<Null, string, SwipeKafkaMessage> producer)
     {
-        _mapper = mapper;
         _producer = producer;
     }
     
-    public async Task LikeAsync()
+    public async Task LikeAsync(SwipeDto swipeDto)
     {
-        throw new NotImplementedException();
+        var kafkaMessage = SwipeKafkaMessage.Like(swipeDto.SenderId, swipeDto.ReceiverId);
+
+        await _producer.ProduceInternalAsync(TopicNames.SwipeEvents, kafkaMessage);
+    }
+
+    public async Task DislikeAsync(SwipeDto swipeDto)
+    {
+        var kafkaMessage = SwipeKafkaMessage.Dislike(swipeDto.SenderId, swipeDto.ReceiverId);
+
+        await _producer.ProduceInternalAsync(TopicNames.SwipeEvents, kafkaMessage);
     }
 }

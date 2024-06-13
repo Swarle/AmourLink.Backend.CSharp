@@ -1,5 +1,6 @@
 using AmourLink.Infrastructure.Extensions;
 using AmourLink.Infrastructure.Middlewares;
+using AmourLink.Swipe.Extensions;
 
 namespace AmourLink.Swipe;
 
@@ -21,7 +22,8 @@ public class Program
         
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGenConfigured("AmourLink.Swipe");
-        
+
+        builder.Services.AddServices(builder.Configuration);
 
         var app = builder.Build();
         

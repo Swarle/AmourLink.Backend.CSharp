@@ -23,12 +23,12 @@ public class SwipeKafkaMessage
 
 public class SwipeMessageType
 {
-    private SwipeMessageType(string value) { Value = value; }
+    public SwipeMessageType(string value) { Value = value; }
 
-    private string Value { get; set; }
+    public string Value { get; }
 
-    public static SwipeMessageType Like => new("Trace");
-    public static SwipeMessageType Dislike => new("Debug");
+    public static SwipeMessageType Like => new("Like");
+    public static SwipeMessageType Dislike => new("Dislike");
 
     public override string ToString()
     {
