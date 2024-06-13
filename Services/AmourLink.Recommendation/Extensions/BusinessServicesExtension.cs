@@ -2,7 +2,7 @@
 using AmourLink.Recommendation.Services;
 using AmourLink.Recommendation.Services.Interfaces;
 
-namespace AmourLink.Recommendation.Extensions.ServiceExtension;
+namespace AmourLink.Recommendation.Extensions;
 
 public static class BusinessServicesExtension
 {

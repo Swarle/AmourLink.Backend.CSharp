@@ -2,19 +2,17 @@
 using AmourLink.Infrastructure.Extensions;
 using AmourLink.Infrastructure.Pagination;
 using AmourLink.Infrastructure.Specification;
-using AmourLink.Recommendation.Data.Context;
-using AmourLink.Recommendation.Extensions;
-using AmourLink.Recommendation.Pagination;
 using Microsoft.EntityFrameworkCore;
 
-namespace AmourLink.Recommendation.Repository;
+namespace AmourLink.Infrastructure.Repository;
 
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity 
+public class Repository<TEntity> : IRepository<TEntity>
+    where TEntity : Entity 
 {
-    private readonly ApplicationDbContext _context;
+    private readonly DbContext _context;
     protected readonly DbSet<TEntity> DbSet;
 
-    public Repository(ApplicationDbContext context)
+    public Repository(DbContext context)
     {
         _context = context;
         DbSet = context.Set<TEntity>();
@@ -37,7 +35,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
         return await query.ApplySpecification(specification).ToListAsync(cancellationToken);
     }
 
-    public async Task<PagedList<TEntity>> GetPagedListAsync(BaseSpecification<TEntity> specification, int? pageNumber = 1, int? pageSize = null,
+    public async Task<PagedList<TEntity>> GetPagedListAsync(BaseSpecification<TEntity> specification, int? pageNumber = 1, int? pageSize = 1,
         CancellationToken cancellationToken = default)
     {
         IQueryable<TEntity> query = DbSet;
@@ -56,26 +54,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
         return new PagedList<TEntity>(data, totalCollectionCount, page, size);
     }
     
-    public async Task<PagedEntity<TEntity>> GetPagedEntityAsync(BaseSpecification<TEntity> specification, int? pageNumber = 1,
-        CancellationToken cancellationToken = default)
-    {
-        IQueryable<TEntity> query = DbSet;
-
-        const int pageSize = 1;
-        
-        var totalCollectionCount = await query.ApplySpecification(specification).CountAsync(cancellationToken);
-
-        var page = pageNumber ?? 1;
-
-        query = query.ApplySpecification(specification)
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize);
-        
-        var data = await query.FirstOrDefaultAsync(cancellationToken);
-
-        return new PagedEntity<TEntity>(data, totalCollectionCount, page);
-    }
-
     public async Task<TEntity?> GetFirstOrDefaultAsync(BaseSpecification<TEntity> specification, CancellationToken cancellationToken = default)
     {
         IQueryable<TEntity> query = DbSet;
@@ -83,9 +61,23 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
         return await query.ApplySpecification(specification).FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(TEntity entity)
+    public async Task CreateAsync(TEntity entity)
     {
-        await Task.Run(() => DbSet.Update(entity));
+        await DbSet.AddAsync(entity);
+    }
+
+    public Task UpdateAsync(TEntity entity)
+    {
+        DbSet.Update(entity);
+
+        return Task.CompletedTask;
+    }
+
+    public Task DeleteAsync(TEntity entity)
+    {
+        DbSet.Remove(entity);
+        
+        return Task.CompletedTask;
     }
 
     public async Task SaveChangesAsync()

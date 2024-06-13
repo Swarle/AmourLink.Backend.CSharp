@@ -1,6 +1,6 @@
 ﻿using AmourLink.Infrastructure.Data.Abstract;
 
-namespace AmourLink.Matching.Data.Entities;
+namespace AmourLink.Swipe.Data.Entities;
 
 public class Interaction : Entity
 {

@@ -1,8 +1,8 @@
-﻿using AmourLink.InternalCommunication.Kafka.Abstract;
+﻿using AmourLink.InternalCommunication.Kafka;
+using AmourLink.InternalCommunication.Kafka.Abstract;
+using AmourLink.InternalCommunication.Kafka.Messages;
 using AmourLink.Swipe.DTO;
-using AmourLink.Swipe.KafkaMessages;
 using AmourLink.Swipe.Services.Interfaces;
-using AmourLink.Swipe.StaticConstants;
 using Confluent.Kafka;
 
 namespace AmourLink.Swipe.Services;
@@ -18,14 +18,14 @@ public class SwipeService : ISwipeService
     
     public async Task LikeAsync(SwipeDto swipeDto)
     {
-        var kafkaMessage = SwipeKafkaMessage.Like(swipeDto.SenderId, swipeDto.ReceiverId);
+        var kafkaMessage = new SwipeKafkaMessage(swipeDto.SenderId, swipeDto.ReceiverId);
 
         await _producer.ProduceInternalAsync(TopicNames.SwipeEvents, kafkaMessage);
     }
 
     public async Task DislikeAsync(SwipeDto swipeDto)
     {
-        var kafkaMessage = SwipeKafkaMessage.Dislike(swipeDto.SenderId, swipeDto.ReceiverId);
+        var kafkaMessage = new SwipeKafkaMessage(swipeDto.SenderId, swipeDto.ReceiverId);
 
         await _producer.ProduceInternalAsync(TopicNames.SwipeEvents, kafkaMessage);
     }

@@ -1,7 +1,7 @@
-﻿using AmourLink.InternalCommunication.Kafka.Extensions;
-using AmourLink.Matching.Kafka.KafkaHandlers;
-using AmourLink.Matching.Kafka.KafkaMessages;
-using AmourLink.Swipe.StaticConstants;
+﻿using AmourLink.InternalCommunication.Kafka;
+using AmourLink.InternalCommunication.Kafka.Extensions;
+using AmourLink.InternalCommunication.Kafka.Messages;
+using AmourLink.Matching.KafkaHandlers;
 
 namespace AmourLink.Matching.Extensions;
 
@@ -11,7 +11,6 @@ public static class ServiceExtensions
     {
         services.AddKafka(configuration)
             .AddConsumer<SwipeKafkaMessage, SwipeMessageHandler>(TopicNames.SwipeEvents);
-        
         
         return services;
     }

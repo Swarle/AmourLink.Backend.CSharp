@@ -1,4 +1,5 @@
-﻿using AmourLink.Infrastructure.Helpers;
+﻿using System.Reflection;
+using AmourLink.Infrastructure.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace AmourLink.Infrastructure.Extensions;
@@ -34,6 +35,16 @@ public static class ModelBuilderExtensions
             }
         }
 
+        return modelBuilder;
+    }
+
+    public static ModelBuilder SetDefaultModelBuilder<TDbContext>(this ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(TDbContext))!);
+
+        modelBuilder.SetValueConverterForGuids();
+        modelBuilder.SetColumnTypeForGuids();
+        
         return modelBuilder;
     }
 }

@@ -5,5 +5,5 @@ namespace AmourLink.Recommendation.Services.Interfaces;
 
 public interface IRecommendationService
 {
-    public Task<MemberDto> GetPagedFeedAsync(PaginationParams paginationParams, CancellationToken cancellationToken = default);
+    public Task<MemberDto> GetPagedFeedAsync(int pageNumber, CancellationToken cancellationToken = default);
 }

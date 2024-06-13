@@ -1,5 +1,5 @@
 ﻿using AmourLink.InternalCommunication.Kafka.Extensions;
-using AmourLink.Swipe.KafkaMessages;
+using AmourLink.InternalCommunication.Kafka.Messages;
 using AmourLink.Swipe.Services;
 using AmourLink.Swipe.Services.Interfaces;
 

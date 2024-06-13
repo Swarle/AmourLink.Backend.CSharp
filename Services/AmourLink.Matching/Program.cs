@@ -1,5 +1,7 @@
 using AmourLink.Infrastructure.Extensions;
 using AmourLink.Infrastructure.Middlewares;
+using AmourLink.Matching.Data.Context;
+using AmourLink.Matching.Extensions;
 
 namespace AmourLink.Matching;
 
@@ -21,6 +23,9 @@ public class Program
         
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGenConfigured("AmourLink.Matching");
+
+        builder.Services.AddServices(builder.Configuration);
+        builder.Services.AddDataServices<ApplicationDbContext>(builder.Configuration);
 
         var app = builder.Build();
 

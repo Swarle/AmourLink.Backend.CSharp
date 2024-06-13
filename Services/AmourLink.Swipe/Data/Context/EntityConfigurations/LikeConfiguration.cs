@@ -1,8 +1,8 @@
-﻿using AmourLink.Matching.Data.Entities;
+﻿using AmourLink.Swipe.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AmourLink.Matching.Data.Context.EntityConfigurations;
+namespace AmourLink.Swipe.Data.Context.EntityConfigurations;
 
 public class LikeConfiguration : IEntityTypeConfiguration<Like>
 {

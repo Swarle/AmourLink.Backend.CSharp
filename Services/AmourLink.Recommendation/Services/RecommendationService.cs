@@ -1,10 +1,10 @@
 ﻿using System.Net;
 using AmourLink.Infrastructure.Extensions;
+using AmourLink.Infrastructure.Repository;
 using AmourLink.Infrastructure.ResponseHandling;
 using AmourLink.Recommendation.Data.Entities;
 using AmourLink.Recommendation.DTO;
 using AmourLink.Recommendation.Pagination;
-using AmourLink.Recommendation.Repository;
 using AmourLink.Recommendation.Services.Interfaces;
 using AmourLink.Recommendation.Specifications;
 using AutoMapper;
@@ -26,7 +26,7 @@ namespace AmourLink.Recommendation.Services
         }
 
 
-        public async Task<MemberDto> GetPagedFeedAsync(PaginationParams paginationParams, CancellationToken cancellationToken = default)
+        public async Task<MemberDto> GetPagedFeedAsync(int pageNumber, CancellationToken cancellationToken = default)
         {
             var currentUserId = _context.User.GetUserId();
             
@@ -51,17 +51,21 @@ namespace AmourLink.Recommendation.Services
                 currentUser.UserPreference.MinAge, currentUser.UserDetails.LastLocation.Y,
                 currentUser.UserDetails.LastLocation.X, currentUser.UserPreference.DistanceRange,
                 currentUser.Rating, currentUserId);
-            
-            var pagedUser = await _userRepository.GetPagedEntityAsync(userWithProfileSpecification,
-                paginationParams.PageNumber, cancellationToken);
 
-            if (pagedUser.Result == null)
+            const int pageSize = 1;
+            
+            var pagedResult = await _userRepository.GetPagedListAsync(userWithProfileSpecification,
+                pageNumber, pageSize, cancellationToken);
+
+            var user = pagedResult.FirstOrDefault();
+
+            if (user == null)
                 throw new HttpException(HttpStatusCode.NotFound, "Can`t find any users for this preferences");
             
-            _context.Response.AddPaginationHeader(pagedUser.CurrentPage,
-                pagedUser.TotalPages, pagedUser.TotalCount);
+            _context.Response.AddPaginationHeader(pagedResult.CurrentPage,
+                pagedResult.TotalPages, pagedResult.TotalCount);
             
-            var userDto = _mapper.Map<MemberDto>(pagedUser.Result);
+            var userDto = _mapper.Map<MemberDto>(user);
             
             return userDto;
         }

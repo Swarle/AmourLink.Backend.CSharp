@@ -18,9 +18,10 @@ namespace AmourLink.Recommendation.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiResponse>> GetPagedRecommendationsAsync([FromQuery]PaginationParams paginationParams)
+        public async Task<ActionResult<ApiResponse>> GetPagedRecommendationsAsync([FromQuery]int pageNumber = 1,
+            CancellationToken cancellationToken = default)
         {
-            var users = await _service.GetPagedFeedAsync(paginationParams);
+            var users = await _service.GetPagedFeedAsync(pageNumber, cancellationToken);
 
             return Ok(ApiResponse.Success(users));
         }

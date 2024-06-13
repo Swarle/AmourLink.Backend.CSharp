@@ -1,9 +1,8 @@
 ﻿using AmourLink.Infrastructure.Data.Abstract;
 using AmourLink.Infrastructure.Pagination;
 using AmourLink.Infrastructure.Specification;
-using AmourLink.Recommendation.Pagination;
 
-namespace AmourLink.Recommendation.Repository;
+namespace AmourLink.Infrastructure.Repository;
 
 public interface IRepository<TEntity> where TEntity : Entity
 {
@@ -14,15 +13,14 @@ public interface IRepository<TEntity> where TEntity : Entity
         CancellationToken cancellationToken = default);
 
     Task<PagedList<TEntity>> GetPagedListAsync(BaseSpecification<TEntity> specification, int? pageNumber,
-        int? pageSize = null, CancellationToken cancellationToken = default);
+        int? pageSize = 1, CancellationToken cancellationToken = default);
     
-    Task<PagedEntity<TEntity>> GetPagedEntityAsync(BaseSpecification<TEntity> specification, int? pageNumber,
-        CancellationToken cancellationToken = default);
-
     Task<TEntity?> GetFirstOrDefaultAsync(BaseSpecification<TEntity> specification,
         CancellationToken cancellationToken = default);
 
+    Task CreateAsync(TEntity entity);
     Task UpdateAsync(TEntity entity);
+    Task DeleteAsync(TEntity entity);
     Task SaveChangesAsync();
 
 }

@@ -1,4 +1,4 @@
-﻿namespace AmourLink.Swipe.StaticConstants;
+﻿namespace AmourLink.InternalCommunication.Kafka;
 
 public static class TopicNames
 {

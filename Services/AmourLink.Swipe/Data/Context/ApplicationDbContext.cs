@@ -1,9 +1,8 @@
-﻿using System.Reflection;
-using AmourLink.Infrastructure.Extensions;
-using AmourLink.Matching.Data.Entities;
+﻿using AmourLink.Infrastructure.Extensions;
+using AmourLink.Swipe.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace AmourLink.Matching.Data.Context;
+namespace AmourLink.Swipe.Data.Context;
 
 public class ApplicationDbContext : DbContext
 {
@@ -11,7 +10,8 @@ public class ApplicationDbContext : DbContext
     {
     }
     
-    public DbSet<Match> Matches { get; set; }
+    public DbSet<Like> Likes { get; set; }
+    public DbSet<Interaction> Interactions { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
