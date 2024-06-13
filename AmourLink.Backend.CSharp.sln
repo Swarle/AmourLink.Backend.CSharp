@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestService2", "Test\TestSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmourLink.Swipe", "Services\AmourLink.Swipe\AmourLink.Swipe.csproj", "{F195DCEB-6503-4EC6-ABE8-2A9DD17B73D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmourLink.InternalCommunication", "Infrastructure\AmourLink.InternalCommunication\AmourLink.InternalCommunication.csproj", "{35B167FC-3064-400C-A5C9-45F9D97CD441}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{F195DCEB-6503-4EC6-ABE8-2A9DD17B73D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F195DCEB-6503-4EC6-ABE8-2A9DD17B73D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F195DCEB-6503-4EC6-ABE8-2A9DD17B73D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35B167FC-3064-400C-A5C9-45F9D97CD441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35B167FC-3064-400C-A5C9-45F9D97CD441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35B167FC-3064-400C-A5C9-45F9D97CD441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35B167FC-3064-400C-A5C9-45F9D97CD441}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,5 +81,6 @@ Global
 		{71F9DBE0-63F6-4C29-90F0-E5788FDF5434} = {D19E8D64-A536-4EDB-9EFB-8C6E997CA8DB}
 		{8627DDBE-4635-4F8F-9546-6BED77E955D9} = {F51565DE-DE51-4A78-A0CD-31E16CED7065}
 		{F195DCEB-6503-4EC6-ABE8-2A9DD17B73D9} = {8ABA6F18-BAE0-4ABC-8C15-DBB64F92B209}
+		{35B167FC-3064-400C-A5C9-45F9D97CD441} = {D19E8D64-A536-4EDB-9EFB-8C6E997CA8DB}
 	EndGlobalSection
 EndGlobal

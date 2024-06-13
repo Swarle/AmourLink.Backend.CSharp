@@ -21,6 +21,7 @@ public class Program
         
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGenConfigured("AmourLink.Swipe");
+        
 
         var app = builder.Build();
         
