@@ -1,9 +1,7 @@
 using AmourLink.Infrastructure.Extensions;
 using AmourLink.Infrastructure.Middlewares;
-using AmourLink.Recommendation.Extensions;
-using AmourLink.Recommendation.Extensions.ServiceExtension;
 
-namespace AmourLink.Recommendation;
+namespace AmourLink.Matching;
 
 public class Program
 {
@@ -15,20 +13,17 @@ public class Program
         {
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         });
-
+        
         builder.Services.Configure<RouteOptions>(opt => opt.LowercaseUrls = true);
-
-        builder.Services.AddDataServices(builder.Configuration);
-        builder.Services.AddServices();
 
         builder.Services.AddAuthenticationConfigured(builder.Configuration);
         builder.Services.AddAuthorization();
         
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGenConfigured("AmourLink.Recommendation");
+        builder.Services.AddSwaggerGenConfigured("AmourLink.Matching");
 
         var app = builder.Build();
-        
+
         if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Local"))
         {
             app.UseSwagger();
@@ -41,10 +36,9 @@ public class Program
         
         app.UseAuthentication();
         app.UseAuthorization();
-
+        
         app.MapControllers();
 
-        app.SeedDatabase();
         app.Run();
     }
 }
