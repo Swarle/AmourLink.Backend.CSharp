@@ -61,6 +61,13 @@ public class Repository<TEntity> : IRepository<TEntity>
         return await query.ApplySpecification(specification).FirstOrDefaultAsync(cancellationToken);
     }
 
+    public async Task<bool> AnyAsync(BaseSpecification<TEntity> specification, CancellationToken cancellationToken = default)
+    {
+        IQueryable<TEntity> query = DbSet;
+
+        return await query.ApplySpecification(specification).AnyAsync(cancellationToken);
+    }
+
     public async Task CreateAsync(TEntity entity)
     {
         await DbSet.AddAsync(entity);

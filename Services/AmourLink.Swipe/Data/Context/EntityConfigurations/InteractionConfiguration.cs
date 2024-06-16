@@ -11,6 +11,8 @@ public class InteractionConfiguration : IEntityTypeConfiguration<Interaction>
         builder.HasKey(e => e.Id)
             .HasName("PRIMARY");
 
+        builder.ToTable("interaction");
+
         builder.Property(e => e.Id)
             .HasColumnName("interaction_id");
 

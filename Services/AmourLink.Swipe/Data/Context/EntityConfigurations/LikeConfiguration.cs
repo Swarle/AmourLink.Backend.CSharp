@@ -11,6 +11,8 @@ public class LikeConfiguration : IEntityTypeConfiguration<Like>
         builder.HasKey(e => e.Id)
             .HasName("PRIMARY");
 
+        builder.ToTable("like");
+
         builder.Property(e => e.Id)
             .HasColumnName("like_id");
         

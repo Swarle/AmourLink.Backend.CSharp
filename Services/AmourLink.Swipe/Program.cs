@@ -24,6 +24,7 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGenConfigured("AmourLink.Swipe");
 
+        builder.Services.AddHttpContextAccessor();
         builder.Services.AddServices(builder.Configuration);
         builder.Services.AddDataServices<ApplicationDbContext>(builder.Configuration);
 

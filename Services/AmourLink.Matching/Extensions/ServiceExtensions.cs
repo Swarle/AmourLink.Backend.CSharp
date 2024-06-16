@@ -10,7 +10,7 @@ public static class ServiceExtensions
     public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddKafka(configuration)
-            .AddConsumer<SwipeKafkaMessage, SwipeMessageHandler>(TopicNames.SwipeEvents);
+            .AddConsumer<SwipeKafkaMessage, SwipeMessageHandler>(TopicNames.SwipeEvent);
         
         return services;
     }

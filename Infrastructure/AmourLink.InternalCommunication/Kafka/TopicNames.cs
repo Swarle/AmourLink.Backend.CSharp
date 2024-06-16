@@ -2,5 +2,6 @@
 
 public static class TopicNames
 {
-    public static string SwipeEvents => "SwipeEvents";
+    public static string SwipeEvent => "SwipeEvent";
+    public static string RatingEvent => "RatingEvent";
 }

@@ -18,6 +18,7 @@ public interface IRepository<TEntity> where TEntity : Entity
     Task<TEntity?> GetFirstOrDefaultAsync(BaseSpecification<TEntity> specification,
         CancellationToken cancellationToken = default);
 
+    Task<bool> AnyAsync(BaseSpecification<TEntity> specification, CancellationToken cancellationToken = default);
     Task CreateAsync(TEntity entity);
     Task UpdateAsync(TEntity entity);
     Task DeleteAsync(TEntity entity);
