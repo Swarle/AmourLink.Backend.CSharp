@@ -1,6 +1,6 @@
 ﻿namespace AmourLink.Infrastructure.Pagination;
 
-public class PagedList<T> : List<T>, IPaged
+public class PagedList<T> : List<T>
 {
     public PagedList(IEnumerable<T> items, int count, int pageNumber, int pageSize)
     {

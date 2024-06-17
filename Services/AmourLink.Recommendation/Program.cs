@@ -1,7 +1,7 @@
 using AmourLink.Infrastructure.Extensions;
 using AmourLink.Infrastructure.Middlewares;
+using AmourLink.Recommendation.Data.Context;
 using AmourLink.Recommendation.Extensions;
-using AmourLink.Recommendation.Extensions.ServiceExtension;
 
 namespace AmourLink.Recommendation;
 
@@ -18,7 +18,7 @@ public class Program
 
         builder.Services.Configure<RouteOptions>(opt => opt.LowercaseUrls = true);
 
-        builder.Services.AddDataServices(builder.Configuration);
+        builder.Services.AddDataServices<ApplicationDbContext>(builder.Configuration);
         builder.Services.AddServices();
 
         builder.Services.AddAuthenticationConfigured(builder.Configuration);
@@ -39,6 +39,7 @@ public class Program
 
         app.UseHttpsRedirection();
         
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllers();

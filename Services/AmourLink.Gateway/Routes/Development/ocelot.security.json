@@ -1,0 +1,46 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/security-service/users/add",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.security",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/security-service/users/add",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.security",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/security-service/login/",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/login/google",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.security",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/security-service/login/google",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    }
+  ]
+}

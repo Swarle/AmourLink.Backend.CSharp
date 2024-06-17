@@ -1,10 +1,10 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS base
 USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/AmourLink.Gateway/AmourLink.Gateway.csproj", "Services/AmourLink.Gateway/"]
@@ -20,4 +20,5 @@ RUN dotnet publish "AmourLink.Gateway.csproj" -c $BUILD_CONFIGURATION -o /app/pu
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY --from=build /src/Services/AmourLink.Gateway/Routes/Development ./Routes/Development
 ENTRYPOINT ["dotnet", "AmourLink.Gateway.dll"]

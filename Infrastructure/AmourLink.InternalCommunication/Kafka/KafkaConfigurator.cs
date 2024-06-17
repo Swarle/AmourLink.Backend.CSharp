@@ -20,7 +20,7 @@ public class KafkaConfigurator
     }
     
     public KafkaConfigurator AddConsumer<TKey,TValue,TContract,THandler,TSerializer>(string topic, KafkaOptions? options = null)
-        where THandler : IMessageHandler<TContract>
+        where THandler : class, IMessageHandler<TContract>
         where TSerializer : IMessageSerializer<TValue>
     {
         _services.AddSingleton<IKafkaConsumer<TKey, TValue>, KafkaConsumer<TKey, TValue>>(provider => 
@@ -30,22 +30,18 @@ public class KafkaConfigurator
                 options: options ?? (_options ?? throw new NullReferenceException("KafkaOptions cannot be null"))
                 ));
 
-        _services.AddHostedService<ConsumerBackgroundService>(provider =>
+        _services.AddHostedService<ConsumerBackgroundService<TKey, TValue, TContract, THandler, TSerializer>>(provider =>
         {
             var kafkaConsumer = provider.GetRequiredService<IKafkaConsumer<TKey, TValue>>();
 
-            var handler = ActivatorUtilities.CreateInstance<THandler>(provider);
-
-            var serializer = ActivatorUtilities.CreateInstance<TSerializer>(provider);
-
-            return new ConsumerBackgroundService(kafkaConsumer.SubscribeInternal(topic, handler, serializer));
+            return new ConsumerBackgroundService<TKey, TValue, TContract, THandler, TSerializer>(topic, kafkaConsumer, provider);
         });
         
         return this;
     }
     
     public KafkaConfigurator AddConsumer<TContract,THandler>(string topic, KafkaOptions? options = null)
-        where THandler : IMessageHandler<TContract>
+        where THandler : class, IMessageHandler<TContract>
     {
         return AddConsumer<Null, string, TContract, THandler, JsonMessageSerializer>(topic, options);
     }

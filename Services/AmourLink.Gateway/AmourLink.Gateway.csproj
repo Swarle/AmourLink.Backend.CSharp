@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <EnableDefaultContentItems>false</EnableDefaultContentItems>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,6 +16,20 @@
       <Content Include="..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+        <Content Include="Routes\Development\ocelot.swipe.json" />
+        <Content Include="Routes\Development\ocelot.global.json" />
+        <Content Include="Routes\Development\ocelot.recommendation.json" />
+        <Content Include="Routes\Development\ocelot.security.json" />
+        <Content Include="Routes\Local\ocelot.global.json" />
+        <Content Include="Routes\Local\ocelot.recommendation.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Routes\Development\ocelot.global.json" />
+      <_ContentIncludedByDefault Remove="Routes\Development\ocelot.recommendation.json" />
+      <_ContentIncludedByDefault Remove="Routes\Development\ocelot.security.json" />
+      <_ContentIncludedByDefault Remove="Routes\Local\ocelot.global.json" />
+      <_ContentIncludedByDefault Remove="Routes\Local\ocelot.recommendation.json" />
     </ItemGroup>
 
 </Project>

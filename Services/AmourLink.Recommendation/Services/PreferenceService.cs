@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using AmourLink.Infrastructure.Extensions;
+using AmourLink.Infrastructure.Repository;
 using AmourLink.Infrastructure.ResponseHandling;
 using AmourLink.Recommendation.Data.Entities;
 using AmourLink.Recommendation.DTO;
-using AmourLink.Recommendation.Repository;
 using AmourLink.Recommendation.Services.Interfaces;
 using AmourLink.Recommendation.Specifications;
 using AutoMapper;

@@ -24,3 +24,36 @@ services:
       SPRING_PROFILES_ACTIVE: docker
     ports:
       - "8002:8081"
+    
+  amourlink.swipe:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__DefaultConnectionString=server=host.docker.internal;user=root;password=rootPassword;database=amourlink
+      - Kafka__BootstrapServers=PLAINTEXT://broker:3002
+    ports:
+      - "8003:8080"
+        
+  amourlink.matching:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__DefaultConnectionString=server=host.docker.internal;user=root;password=rootPassword;database=amourlink
+      - Kafka__BootstrapServers=PLAINTEXT://broker:3002
+    ports:
+      - "8004:8080"
+  
+  zookeeper:
+    ports:
+      - "2181:2181"
+        
+  broker:
+    ports:
+      - "3002:3002"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: 'PLAINTEXT://0.0.0.0:3002'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker:3002'
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1

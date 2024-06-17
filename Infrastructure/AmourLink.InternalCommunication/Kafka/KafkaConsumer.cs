@@ -23,13 +23,13 @@ public class KafkaConsumer<TKey, TValue> : IKafkaConsumer<TKey, TValue>
     public IConsumerManager SubscribeInternal<TContract>(string topic, IMessageHandler<TContract> handler, IMessageSerializer<TValue> serializer)
     {
         _logger.LogInformation($"Started subscribing to {topic} topic");
+        
+        var clientFactory = _provider.GetService<IKafkaClientFactory>() ??
+                            throw new NullReferenceException(
+                                $"There are no {nameof(IKafkaClientFactory)} implementation in Service provider");
 
         try
         {
-            var clientFactory = _provider.GetService<IKafkaClientFactory>() ??
-                                throw new NullReferenceException(
-                                    $"There are no {nameof(IKafkaClientFactory)} implementation in Service provider");
-
             var consumer = clientFactory.CreateConsumer<TKey, TValue>(_options);
 
             consumer.Subscribe(topic);

@@ -1,0 +1,32 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/swipe-service/swipe/like",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.swipe",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/swipe-service/swipe/like",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/swipe-service/swipe/dislike",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.swipe",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/swipe-service/swipe/dislike",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    }
+  ]
+}

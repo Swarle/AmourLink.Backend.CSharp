@@ -1,5 +1,4 @@
-﻿using AmourLink.Swipe.DTO;
-using AmourLink.Swipe.Services.Interfaces;
+﻿using AmourLink.Swipe.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AmourLink.Swipe.Controllers;
@@ -14,17 +13,18 @@ public class SwipeController : BaseApiController
     }
 
     [HttpPost("like")]
-    public async Task<ActionResult> LikeAsync([FromBody] SwipeDto swipeDto)
+    public async Task<ActionResult> LikeAsync([FromQuery] Guid receiverId)
     {
-        await _swipeService.LikeAsync(swipeDto);
+        await _swipeService.LikeAsync(receiverId);
 
         return Ok();
     }
+    
 
     [HttpPost("dislike")]
-    public async Task<ActionResult> DislikeAsync([FromBody] SwipeDto swipeDto)
+    public async Task<ActionResult> DislikeAsync([FromQuery] Guid receiverId)
     {
-        await _swipeService.DislikeAsync(swipeDto);
+        await _swipeService.DislikeAsync(receiverId);
 
         return Ok();
     }

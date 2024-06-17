@@ -1,5 +1,6 @@
 using AmourLink.Infrastructure.Extensions;
 using AmourLink.Infrastructure.Middlewares;
+using AmourLink.Swipe.Data.Context;
 using AmourLink.Swipe.Extensions;
 
 namespace AmourLink.Swipe;
@@ -23,6 +24,8 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGenConfigured("AmourLink.Swipe");
 
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddDataServices<ApplicationDbContext>(builder.Configuration);
         builder.Services.AddServices(builder.Configuration);
 
         var app = builder.Build();
@@ -36,7 +39,8 @@ public class Program
         app.UseApiExceptionMiddleware();
 
         app.UseHttpsRedirection();
-
+        
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllers();

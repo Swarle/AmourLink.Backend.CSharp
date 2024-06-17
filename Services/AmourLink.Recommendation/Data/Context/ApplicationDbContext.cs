@@ -18,7 +18,6 @@ public class ApplicationDbContext : DbContext
     public virtual DbSet<Music> Musics { get; set; }
 
     public virtual DbSet<Picture> Pictures { get; set; }
-
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -32,10 +31,7 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(ApplicationDbContext))!);
-
-        modelBuilder.SetValueConverterForGuids();
-        modelBuilder.SetColumnTypeForGuids();
+        modelBuilder.SetDefaultModelBuilder<ApplicationDbContext>();
     }
 }
 
