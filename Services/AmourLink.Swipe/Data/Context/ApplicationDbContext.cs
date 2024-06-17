@@ -10,8 +10,7 @@ public class ApplicationDbContext : DbContext
     {
     }
     
-    public DbSet<Like> Likes { get; set; }
-    public DbSet<Interaction> Interactions { get; set; }
+    public DbSet<SwipeEntity> Likes { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

@@ -17,17 +17,16 @@ public class Program
         });
         
         builder.Services.Configure<RouteOptions>(opt => opt.LowercaseUrls = true);
-
+        
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddDataServices<ApplicationDbContext>(builder.Configuration);
+        builder.Services.AddServices(builder.Configuration);
+        
         builder.Services.AddAuthenticationConfigured(builder.Configuration);
         builder.Services.AddAuthorization();
         
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGenConfigured("AmourLink.Swipe");
-
-        builder.Services.AddHttpContextAccessor();
-        builder.Services.AddDataServices<ApplicationDbContext>(builder.Configuration);
-        builder.Services.AddServices(builder.Configuration);
-
         var app = builder.Build();
         
         if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Local"))
@@ -42,7 +41,7 @@ public class Program
         
         app.UseAuthentication();
         app.UseAuthorization();
-
+        
         app.MapControllers();
 
         app.Run();
