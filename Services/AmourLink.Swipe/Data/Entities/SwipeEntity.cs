@@ -2,18 +2,19 @@
 
 namespace AmourLink.Swipe.Data.Entities;
 
-public class Like : Entity
+public class SwipeEntity : Entity
 {
     public Guid UserSentId { get; set; }
     public Guid UserReceiverId { get; set; }
-    public LikeType LikeType { get; set; }
+    public SwipeType SwipeType { get; set; }
     public string? Message { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.Now;
 }
 
-public enum LikeType
+public enum SwipeType
 {
     DefaultLike,
     SuperLike,
-    LikeWithMessage
+    LikeWithMessage,
+    Dislike
 }
