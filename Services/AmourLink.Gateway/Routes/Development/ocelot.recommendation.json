@@ -1,0 +1,46 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/recommendation-service/recommendation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.recommendation",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/recommendation-service/recommendation",
+      "UpstreamHttpMethod": [
+        "GET"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/recommendation-service/preference",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.recommendation",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/recommendation-service/preference",
+      "UpstreamHttpMethod": [
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/recommendation-service/preference",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.recommendation",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/recommendation-service/preference",
+      "UpstreamHttpMethod": [
+        "GET"
+      ]
+    }
+  ]
+}

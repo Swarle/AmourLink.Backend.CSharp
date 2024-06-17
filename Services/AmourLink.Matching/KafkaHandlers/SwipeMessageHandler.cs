@@ -28,6 +28,4 @@ public class SwipeMessageHandler : IMessageHandler<SwipeKafkaMessage>
         await _matchRepository.CreateAsync(match);
         await _matchRepository.SaveChangesAsync();
     }
-
-
 }

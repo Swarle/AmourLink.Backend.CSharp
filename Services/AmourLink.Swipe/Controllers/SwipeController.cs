@@ -22,7 +22,7 @@ public class SwipeController : BaseApiController
     
 
     [HttpPost("dislike")]
-    public async Task<ActionResult> DislikeAsync([FromBody] Guid receiverId)
+    public async Task<ActionResult> DislikeAsync([FromQuery] Guid receiverId)
     {
         await _swipeService.DislikeAsync(receiverId);
 

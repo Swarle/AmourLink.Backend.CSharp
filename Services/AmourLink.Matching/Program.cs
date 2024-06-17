@@ -23,9 +23,9 @@ public class Program
         
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGenConfigured("AmourLink.Matching");
-
-        builder.Services.AddServices(builder.Configuration);
+        
         builder.Services.AddDataServices<ApplicationDbContext>(builder.Configuration);
+        builder.Services.AddServices(builder.Configuration);
 
         var app = builder.Build();
 

@@ -11,6 +11,8 @@ public class MatchConfiguration : IEntityTypeConfiguration<Match>
         builder.HasKey(e => e.Id)
             .HasName("PRIMARY");
 
+        builder.ToTable("match");
+
         builder.Property(e => e.Id)
             .HasColumnName("match_id");
 

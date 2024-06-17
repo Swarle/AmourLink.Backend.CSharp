@@ -15,7 +15,7 @@ public class PreferenceController : BaseApiController
     }
 
     [HttpGet]
-    public async Task<ActionResult<ApiResponse>>  GetUserPreferenceAsync(CancellationToken cancellationToken = default)
+    public async Task<ActionResult<ApiResponse>> GetUserPreferenceAsync(CancellationToken cancellationToken = default)
     {
         var preference = await _preferenceService.GetUserPreferenceAsync(cancellationToken);
 

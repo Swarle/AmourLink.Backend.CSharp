@@ -42,8 +42,8 @@ public class SwipeService : ISwipeService
 
         var isLikeExists = await _likeRepository.AnyAsync(likeSpecification, cancellationToken);
 
-        // if (isLikeExists)
-        //     throw new HttpException(HttpStatusCode.Conflict, "A like already exists from current user to receiver");
+        if (isLikeExists)
+            throw new HttpException(HttpStatusCode.Conflict, "A like already exists from current user to receiver");
         
         await UpsertInteractionAsync(currentUserId, receiverId, cancellationToken);
         

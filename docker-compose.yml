@@ -5,33 +5,57 @@ services:
     image: ${DOCKER_REGISTRY-}recommendation:latest
     build:
       context: ..
-      dockerfile: AmourLink.Backend.CSharp/API/AmourLink.Recommendation/Dockerfile
+      dockerfile: AmourLink.Backend.CSharp/Services/AmourLink.Recommendation/Dockerfile
   
   amourlink.gateway:
     image: ${DOCKER_REGISTRY-}gateway:latest
     build:
       context: ..
-      dockerfile: AmourLink.Backend.CSharp/AmourLink.Gateway/Dockerfile
+      dockerfile: AmourLink.Backend.CSharp/Services/AmourLink.Gateway/Dockerfile
       
   amourlink.security:
     image: danyloz/amourlink-java-security-service:1.7
     
+  amourlink.swipe:
+    image: ${DOCKER_REGISTRY-}swipe:latest
+    build:
+      context: ..
+      dockerfile: AmourLink.Backend.CSharp/Services/AmourLink.Swipe/Dockerfile
+      
+  amourlink.matching:
+    image: ${DOCKER_REGISTRY-}matching:latest
+    build:
+      context: ..
+      dockerfile: AmourLink.Backend.CSharp/Services/AmourLink.Matching/Dockerfile
+    depends_on:
+      - create-topics
+    
   zookeeper:
     image: wurstmeister/zookeeper
-    ports:
-      - "2181:2181"
 
   broker:
     image: wurstmeister/kafka
     hostname: broker
     depends_on:
       - zookeeper
-    ports:
-      - "3002:3002"
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENERS: 'PLAINTEXT://0.0.0.0:3002'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://localhost:3002'
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+
+  create-topics:
+    image: wurstmeister/kafka
+    depends_on:
+      - broker
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        # Wait for the Kafka broker to be ready
+        echo "Waiting for Kafka broker to be ready..."
+        while ! nc -z broker 3002; do   
+          sleep 1
+        done
+        echo "Kafka broker is ready"
+        
+        # Create topics
+        kafka-topics.sh --create --topic SwipeEvent --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
+        kafka-topics.sh --create --topic RatingEvent --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
+

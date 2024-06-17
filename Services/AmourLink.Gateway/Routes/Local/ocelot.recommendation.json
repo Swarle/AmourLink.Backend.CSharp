@@ -14,8 +14,5 @@
         "GET"
       ]
     }
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
-  }
+  ]
 }

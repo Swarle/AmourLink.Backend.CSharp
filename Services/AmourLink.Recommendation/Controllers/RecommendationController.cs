@@ -1,10 +1,6 @@
 using AmourLink.Infrastructure.ResponseHandling;
-using AmourLink.Recommendation.Data.Context;
-using AmourLink.Recommendation.Data.Entities;
-using AmourLink.Recommendation.Pagination;
 using AmourLink.Recommendation.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace AmourLink.Recommendation.Controllers
 {
