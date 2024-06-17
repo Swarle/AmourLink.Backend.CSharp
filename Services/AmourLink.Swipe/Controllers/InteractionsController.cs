@@ -1,0 +1,24 @@
+﻿using AmourLink.Infrastructure.ResponseHandling;
+using AmourLink.Swipe.DTO;
+using AmourLink.Swipe.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+
+namespace AmourLink.Swipe.Controllers;
+
+public class InteractionsController : BaseApiController
+{
+    private readonly IInteractionService _interactionService;
+    
+    public InteractionsController(IInteractionService interactionService)
+    {
+        _interactionService = interactionService;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<InteractionDto>> GetInteractions(CancellationToken cancellationToken = default)
+    {
+        var interaction = await _interactionService.GetInteractedUsersIdAsync(cancellationToken);
+
+        return Ok(ApiResponse.Success(interaction));
+    }
+}

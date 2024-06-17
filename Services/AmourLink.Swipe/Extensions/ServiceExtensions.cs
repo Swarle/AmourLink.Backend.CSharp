@@ -15,17 +15,8 @@ public static class ServiceExtensions
             .AddProducer<RatingKafkaMessage>();
 
         services.AddScoped<ISwipeService, SwipeService>();
+        services.AddScoped<IInteractionService, InteractionService>();
         
         return services;
-    }
-
-    public static Like Like(this Like like, Guid senderId, Guid receiverId)
-    {
-        return new Like
-        {
-            UserSentId = senderId,
-            UserReceiverId = receiverId,
-            LikeType = LikeType.DefaultLike,
-        };
     }
 }

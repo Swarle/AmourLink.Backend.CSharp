@@ -17,18 +17,15 @@ public class SwipeService : ISwipeService
 {
     private readonly IKafkaProducer<Null, string, SwipeKafkaMessage> _swipeProducer;
     private readonly IKafkaProducer<Null, string, RatingKafkaMessage> _ratingProducer;
-    private readonly IRepository<Like> _likeRepository;
-    private readonly IRepository<Interaction> _interactionRepository;
+    private readonly IRepository<SwipeEntity> _swipeRepository;
     private readonly HttpContext _context;
 
     public SwipeService(IKafkaProducer<Null, string, SwipeKafkaMessage> swipeProducer,
-        IRepository<Like> likeRepository,
-        IRepository<Interaction> interactionRepository,
+        IRepository<SwipeEntity> swipeRepository,
         IHttpContextAccessor accessor, IKafkaProducer<Null, string, RatingKafkaMessage> ratingProducer)
     {
         _swipeProducer = swipeProducer;
-        _likeRepository = likeRepository;
-        _interactionRepository = interactionRepository;
+        _swipeRepository = swipeRepository;
         _ratingProducer = ratingProducer;
         _context = accessor.HttpContext ??
                    throw new InvalidOperationException("HttpContextAccessor does`t have context");
@@ -38,25 +35,23 @@ public class SwipeService : ISwipeService
     {
         var currentUserId = GetUserIdFromHeader();
 
-        var likeSpecification = new LikeBySenderAndReceiverSpecification(currentUserId, receiverId);
+        var likeSpecification = new LikeByUserIdSpecification(currentUserId, receiverId);
 
-        var isLikeExists = await _likeRepository.AnyAsync(likeSpecification, cancellationToken);
+        var isLikeExists = await _swipeRepository.AnyAsync(likeSpecification, cancellationToken);
 
         if (isLikeExists)
             throw new HttpException(HttpStatusCode.Conflict, "A like already exists from current user to receiver");
         
-        await UpsertInteractionAsync(currentUserId, receiverId, cancellationToken);
+        var like = SwipeFactory.DefaultLike(currentUserId, receiverId);
         
-        var like = LikeFactory.DefaultLike(currentUserId, receiverId);
-        
-        await _likeRepository.CreateAsync(like);
-        await _likeRepository.SaveChangesAsync();
+        await _swipeRepository.CreateAsync(like);
+        await _swipeRepository.SaveChangesAsync();
 
         await ProduceToRatingEventAsync(RatingKafkaMessage.Like(currentUserId, receiverId));
 
-        var mutualLikeSpecification = new LikeBySenderAndReceiverSpecification(receiverId, currentUserId);
+        var mutualLikeSpecification = new LikeByUserIdSpecification(receiverId, currentUserId);
 
-        var isMutualLikeExists = await _likeRepository.AnyAsync(mutualLikeSpecification, cancellationToken);
+        var isMutualLikeExists = await _swipeRepository.AnyAsync(mutualLikeSpecification, cancellationToken);
 
         if (isMutualLikeExists)
             await ProduceToSwipeEventAsync(currentUserId, receiverId);
@@ -66,7 +61,22 @@ public class SwipeService : ISwipeService
     {
         var currentUserId = GetUserIdFromHeader();
 
-        await UpsertInteractionAsync(currentUserId, receiverId, cancellationToken);
+        var dislikeSpecification = new DislikeByUserIdSpecification(currentUserId, receiverId);
+
+        var dislike = await _swipeRepository.GetFirstOrDefaultAsync(dislikeSpecification, cancellationToken);
+
+        if (dislike == null)
+        {
+            dislike = SwipeFactory.Dislike(currentUserId, receiverId);
+            await _swipeRepository.CreateAsync(dislike);
+        }
+        else
+        {
+            dislike.CreatedAt = DateTime.Now;
+            await _swipeRepository.UpdateAsync(dislike);
+        }
+
+        await _swipeRepository.SaveChangesAsync();
     }
 
     private async Task ProduceToSwipeEventAsync(Guid firstId, Guid secondId)
@@ -81,26 +91,7 @@ public class SwipeService : ISwipeService
         await _ratingProducer.ProduceInternalAsync(TopicNames.RatingEvent, ratingKafkaMessage);
     }
     
-
-    private async Task UpsertInteractionAsync(Guid firstId, Guid secondId, CancellationToken cancellationToken = default)
-    {
-        var interactionSpecification = new InteractionByUsersIdSpecification(firstId, secondId);
-
-        var interaction = await _interactionRepository.GetFirstOrDefaultAsync(interactionSpecification, cancellationToken);
-
-        if (interaction != null)
-        {
-            interaction.LastInteraction = DateTime.Now;
-            await _interactionRepository.UpdateAsync(interaction);
-        }
-        else
-        {
-            interaction = InteractionFactory.CreateInteraction(firstId, secondId);
-            await _interactionRepository.CreateAsync(interaction);
-        }
-        
-        await _interactionRepository.SaveChangesAsync();
-    }
+    
 
     private Guid GetUserIdFromHeader()
     {

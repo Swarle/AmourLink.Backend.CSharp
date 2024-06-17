@@ -4,24 +4,24 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AmourLink.Swipe.Data.Context.EntityConfigurations;
 
-public class LikeConfiguration : IEntityTypeConfiguration<Like>
+public class SwipeConfiguration : IEntityTypeConfiguration<Entities.SwipeEntity>
 {
-    public void Configure(EntityTypeBuilder<Like> builder)
+    public void Configure(EntityTypeBuilder<Entities.SwipeEntity> builder)
     {
         builder.HasKey(e => e.Id)
             .HasName("PRIMARY");
 
-        builder.ToTable("like");
+        builder.ToTable("swipe");
 
         builder.Property(e => e.Id)
-            .HasColumnName("like_id");
+            .HasColumnName("swipe_id");
         
         builder.Property(e => e.CreatedAt)
             .HasColumnType("timestamp");
 
-        builder.Property(e => e.LikeType)
+        builder.Property(e => e.SwipeType)
             .HasConversion(
                 v => v.ToString(),
-                v => (LikeType)Enum.Parse(typeof(LikeType), v));
+                v => (SwipeType)Enum.Parse(typeof(SwipeType), v));
     }
 }
