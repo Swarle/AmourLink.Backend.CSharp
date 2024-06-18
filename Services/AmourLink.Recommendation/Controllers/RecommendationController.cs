@@ -1,4 +1,6 @@
 using AmourLink.Infrastructure.ResponseHandling;
+using AmourLink.Recommendation.DTO;
+using AmourLink.Recommendation.Parameters;
 using AmourLink.Recommendation.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,13 +15,13 @@ namespace AmourLink.Recommendation.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<ApiResponse>> GetPagedRecommendationsAsync([FromQuery]int pageNumber = 1,
+        [HttpPost]
+        public async Task<ActionResult<ApiResponse>> GetPagedRecommendationsAsync(FeedParams feedParams,
             CancellationToken cancellationToken = default)
         {
-            var users = await _service.GetPagedFeedAsync(pageNumber, cancellationToken);
+            var feedDto = await _service.GetPagedFeedAsync(feedParams, cancellationToken);
 
-            return Ok(ApiResponse.Success(users));
+            return Ok(ApiResponse.Success(feedDto));
         }
         
     }

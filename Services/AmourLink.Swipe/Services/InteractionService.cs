@@ -25,16 +25,19 @@ public class InteractionService : IInteractionService
 
         var dislikeSpecification = new DislikeByUserIdSpecification(userId);
 
-        var dislikes = await _swipeRepository.GetAllAsync(dislikeSpecification, cancellationToken);
+        var dislikedId = (await _swipeRepository.GetAllAsync(dislikeSpecification, cancellationToken))
+            .Select(d => d.UserReceiverId).ToList();
 
         var likeSpecification = new LikeByUserIdSpecification(userId);
 
-        var likes = await _swipeRepository.GetAllAsync(likeSpecification, cancellationToken);
+        var likedId = (await _swipeRepository.GetAllAsync(likeSpecification, cancellationToken))
+            .Select(l => l.UserReceiverId).ToList();
 
+        dislikedId.AddRange(likedId);
+        
         var interactionDto = new InteractionDto
         {
-            UsersInteractedId = dislikes.Select(l => l.UserReceiverId).ToList(),
-            UsersLikedId = likes.Select(l => l.UserReceiverId).ToList()
+            ExcludeId = dislikedId,
         };
 
         return interactionDto;

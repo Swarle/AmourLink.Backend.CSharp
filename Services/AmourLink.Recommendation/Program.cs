@@ -19,7 +19,7 @@ public class Program
         builder.Services.Configure<RouteOptions>(opt => opt.LowercaseUrls = true);
 
         builder.Services.AddDataServices<ApplicationDbContext>(builder.Configuration);
-        builder.Services.AddServices();
+        builder.Services.AddServices(builder.Configuration);
 
         builder.Services.AddAuthenticationConfigured(builder.Configuration);
         builder.Services.AddAuthorization();
