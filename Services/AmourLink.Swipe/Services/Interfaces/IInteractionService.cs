@@ -4,5 +4,5 @@ namespace AmourLink.Swipe.Services.Interfaces;
 
 public interface IInteractionService
 {
-    public Task<InteractionDto> GetInteractedUsersIdAsync(CancellationToken cancellationToken = default);
+    public Task<InteractionDto> GetInteractedUsersIdAsync(Guid userId,CancellationToken cancellationToken = default);
 }

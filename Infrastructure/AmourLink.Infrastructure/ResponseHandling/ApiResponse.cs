@@ -4,10 +4,16 @@ namespace AmourLink.Infrastructure.ResponseHandling;
 
 public class ApiResponse
 {
+    [JsonPropertyName("ResponseType")]
+    public string ResponseTypeValue { get; set; } = ResponseType.Success.ToString();
+    public object? Result { get; set; }
+    public Dictionary<string, string> ErrorMessages { get; set; } = [];
+    
     public ApiResponse()
     {
         
     }
+    
     public ApiResponse(ResponseType responseType, string? errorMessage = null, object? result = null)
     {
         ResponseTypeValue = responseType.ToString();
@@ -23,11 +29,7 @@ public class ApiResponse
         Result = result;
         ErrorMessages = errorMessages;
     }
-
-    [JsonPropertyName("ResponseType")]
-    public string ResponseTypeValue { get; set; } = ResponseType.Success.ToString();
-    public object? Result { get; set; }
-    public Dictionary<string, string> ErrorMessages { get; set; } = [];
+    
 
     public static ApiResponse Success(object? result = null)
     {
@@ -62,3 +64,4 @@ public class ApiResponse
         return response;
     }
 }
+

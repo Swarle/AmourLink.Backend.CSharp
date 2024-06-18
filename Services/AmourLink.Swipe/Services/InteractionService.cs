@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using AmourLink.Infrastructure.Extensions;
 using AmourLink.Infrastructure.Repository;
 using AmourLink.Infrastructure.ResponseHandling;
 using AmourLink.Swipe.Data.Entities;
@@ -13,35 +12,32 @@ namespace AmourLink.Swipe.Services;
 public class InteractionService : IInteractionService
 {
     private readonly IRepository<SwipeEntity> _swipeRepository;
-    private readonly HttpContext _context;
 
-    public InteractionService(IRepository<SwipeEntity> swipeRepository,
-        IHttpContextAccessor accessor)
+    public InteractionService(IRepository<SwipeEntity> swipeRepository)
     {
         _swipeRepository = swipeRepository;
-        _context = accessor.HttpContext ??
-                   throw new InvalidOperationException("HttpContextAccessor does`t have context");
     }
 
-    public async Task<InteractionDto> GetInteractedUsersIdAsync(CancellationToken cancellationToken = default)
+    public async Task<InteractionDto> GetInteractedUsersIdAsync(Guid userId,CancellationToken cancellationToken = default)
     {
-        var currentUserId = _context.User.GetUserId();
-
-        if (currentUserId == Guid.Empty)
+        if (userId == Guid.Empty)
             throw new HttpException(HttpStatusCode.Unauthorized, "User can`t have default Guid id");
 
-        var dislikeSpecification = new DislikeByUserIdSpecification(currentUserId);
+        var dislikeSpecification = new DislikeByUserIdSpecification(userId);
 
-        var dislikes = await _swipeRepository.GetAllAsync(dislikeSpecification, cancellationToken);
+        var dislikedId = (await _swipeRepository.GetAllAsync(dislikeSpecification, cancellationToken))
+            .Select(d => d.UserReceiverId).ToList();
 
-        var likeSpecification = new LikeByUserIdSpecification(currentUserId);
+        var likeSpecification = new LikeByUserIdSpecification(userId);
 
-        var likes = await _swipeRepository.GetAllAsync(likeSpecification, cancellationToken);
+        var likedId = (await _swipeRepository.GetAllAsync(likeSpecification, cancellationToken))
+            .Select(l => l.UserReceiverId).ToList();
 
+        dislikedId.AddRange(likedId);
+        
         var interactionDto = new InteractionDto
         {
-            UsersInteractedId = dislikes.Select(l => l.UserReceiverId).ToList(),
-            UsersLikedId = likes.Select(l => l.UserReceiverId).ToList()
+            ExcludeId = dislikedId,
         };
 
         return interactionDto;

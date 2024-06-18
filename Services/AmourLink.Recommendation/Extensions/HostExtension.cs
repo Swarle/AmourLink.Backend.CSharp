@@ -17,8 +17,6 @@ public static class HostExtension
         if (context.Users.Any())
             return host;
         
-        
-
         var users = new Faker<User>()
             .RuleFor(u => u.Id, f => Guid.NewGuid())
             .RuleFor(u => u.Password, f => f.Internet.Password())

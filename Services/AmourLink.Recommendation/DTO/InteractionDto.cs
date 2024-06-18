@@ -1,4 +1,4 @@
-﻿namespace AmourLink.Swipe.DTO;
+﻿namespace AmourLink.Recommendation.DTO;
 
 public class InteractionDto
 {
