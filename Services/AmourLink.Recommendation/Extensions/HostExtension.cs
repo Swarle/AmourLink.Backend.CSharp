@@ -14,12 +14,15 @@ public static class HostExtension
         var services = scope.ServiceProvider;
         var context = services.GetRequiredService<ApplicationDbContext>();
 
+        const string password = "$2a$10$.qDt0HaxBEfDvOJQzVQozOLQUo8ANVotdxywO5HHdPyTd2edmJKkG";
+
         if (context.Users.Any())
             return host;
         
         var users = new Faker<User>()
             .RuleFor(u => u.Id, f => Guid.NewGuid())
-            .RuleFor(u => u.Password, f => f.Internet.Password())
+            .RuleFor(u => u.Password, password)
+            .RuleFor(u => u.Enabled, true)
             .RuleFor(u => u.Email, f => f.Internet.Email())
             .RuleFor(u => u.AccountType, "LOCAL")
             .RuleFor(u => u.Rating, f => f.Random.Int(600, 3000))
@@ -81,8 +84,9 @@ public static class HostExtension
     {
         return new Faker<User>()
             .RuleFor(u => u.Id, f => Guid.NewGuid())
-            .RuleFor(u => u.Password, f => "$2a$10$Kw9CVrUSW3SMIOQoY4l35ujBvRitDyP2nprNMFf6mhXoj77056.my")
+            .RuleFor(u => u.Password, f => "$2a$10$.qDt0HaxBEfDvOJQzVQozOLQUo8ANVotdxywO5HHdPyTd2edmJKkG")
             .RuleFor(u => u.Email, f => "bogdanvalman@gmail.com")
+            .RuleFor(u => u.Enabled, true)
             .RuleFor(u => u.AccountType, "GOOGLE")
             .RuleFor(u => u.Rating, f => 1500)
             .RuleFor(u => u.CreatedAt, f => f.Date.Past())

@@ -29,6 +29,28 @@ services:
       dockerfile: AmourLink.Backend.CSharp/Services/AmourLink.Matching/Dockerfile
     depends_on:
       - create-topics
+        
+#  amourlink.media:
+#    image: danyloz/amourlink-java-media-service:latest
+#    ports:
+#      - "8005:8080"
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/amourlink
+#      SPRING_DATASOURCE_USERNAME: root
+#      SPRING_DATASOURCE_PASSWORD: rootPassword
+#      SPRING_PROFILES_ACTIVE: docker
+#
+#  amourlink.user:
+#    image: danyloz/amourlink-java-user-service:latest
+#    depends_on:
+#      - amourlink.media
+#    ports:
+#      - "8006:8080"
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/amourlink
+#      SPRING_DATASOURCE_USERNAME: root
+#      SPRING_DATASOURCE_PASSWORD: rootPassword
+#      SPRING_PROFILES_ACTIVE: docker
     
   zookeeper:
     image: wurstmeister/zookeeper
@@ -50,7 +72,7 @@ services:
       - |
         # Wait for the Kafka broker to be ready
         echo "Waiting for Kafka broker to be ready..."
-        while ! nc -z broker 3002; do   
+        while ! nc -z broker 9092; do   
           sleep 1
         done
         echo "Kafka broker is ready"
