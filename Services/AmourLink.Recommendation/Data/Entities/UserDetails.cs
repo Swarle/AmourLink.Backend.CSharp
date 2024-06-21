@@ -20,7 +20,7 @@ public class UserDetails : Entity
     public Guid? DegreeId { get; set; }
     
     public Degree? Degree { get; set; }
-    public ICollection<Hobbie> Hobbies { get; set; } = [];
+    public ICollection<Hobby> Hobbies { get; set; } = [];
     public Music? Music { get; set; }
     public ICollection<Picture> Pictures { get; set; } = [];
     public User User { get; set; } = null!;

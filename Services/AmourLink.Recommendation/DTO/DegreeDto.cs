@@ -3,6 +3,6 @@
 public class DegreeDto
 {
     public required string SchoolName { get; set; }
-    public required string DegreeType { get; set; }
+    public required string DegreeName { get; set; }
     public DateTime StartYear { get; set; }
 }

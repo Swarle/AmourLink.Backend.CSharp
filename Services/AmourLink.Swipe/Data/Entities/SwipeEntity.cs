@@ -7,6 +7,7 @@ public class SwipeEntity : Entity
     public Guid UserSentId { get; set; }
     public Guid UserReceiverId { get; set; }
     public SwipeType SwipeType { get; set; }
+    public bool? IsResponded { get; set; }
     public string? Message { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.Now;
 }

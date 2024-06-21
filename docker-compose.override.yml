@@ -31,16 +31,17 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ConnectionStrings__DefaultConnectionString=server=host.docker.internal;user=root;password=rootPassword;database=amourlink
-      - Kafka__BootstrapServers=PLAINTEXT://broker:3002
+      - Kafka__BootstrapServers=PLAINTEXT://broker:9092
+      - CommunicationUri__MatchService=http://amourlink.match:8080/
     ports:
       - "8003:8080"
         
-  amourlink.matching:
+  amourlink.match:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ConnectionStrings__DefaultConnectionString=server=host.docker.internal;user=root;password=rootPassword;database=amourlink
-      - Kafka__BootstrapServers=PLAINTEXT://broker:3002
+      - Kafka__BootstrapServers=PLAINTEXT://broker:9092
     ports:
       - "8004:8080"
   
@@ -50,11 +51,12 @@ services:
         
   broker:
     ports:
-      - "3002:3002"
+      - "9092:9092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENERS: 'PLAINTEXT://0.0.0.0:3002'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker:3002'
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_LISTENERS: 'PLAINTEXT://0.0.0.0:9092'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker:9092'
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1

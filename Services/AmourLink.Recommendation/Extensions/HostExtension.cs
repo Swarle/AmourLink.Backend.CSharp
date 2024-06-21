@@ -14,12 +14,15 @@ public static class HostExtension
         var services = scope.ServiceProvider;
         var context = services.GetRequiredService<ApplicationDbContext>();
 
+        const string password = "$2a$10$.qDt0HaxBEfDvOJQzVQozOLQUo8ANVotdxywO5HHdPyTd2edmJKkG";
+
         if (context.Users.Any())
             return host;
         
         var users = new Faker<User>()
             .RuleFor(u => u.Id, f => Guid.NewGuid())
-            .RuleFor(u => u.Password, f => f.Internet.Password())
+            .RuleFor(u => u.Password, password)
+            .RuleFor(u => u.Enabled, true)
             .RuleFor(u => u.Email, f => f.Internet.Email())
             .RuleFor(u => u.AccountType, "LOCAL")
             .RuleFor(u => u.Rating, f => f.Random.Int(600, 3000))
@@ -41,8 +44,8 @@ public static class HostExtension
                     Tags = new List<Tag>(new Faker<Tag>()
                         .RuleFor(t => t.TagName, f => f.Lorem.Word())
                         .Generate(14)),
-                    Hobbies = new List<Hobbie>(new Faker<Hobbie>()
-                        .RuleFor(h => h.HobbieName, f => f.Lorem.Word())
+                    Hobbies = new List<Hobby>(new Faker<Hobby>()
+                        .RuleFor(h => h.HobbyName, f => f.Lorem.Word())
                         .RuleFor(h => h.UserDetailsId, u.Id)
                         .Generate(2)),
                     Pictures = new List<Picture>(new Faker<Picture>()
@@ -52,7 +55,7 @@ public static class HostExtension
                         .RuleFor(p => p.TimeAdded, f.Date.Past())
                         .Generate(4)),
                     Degree = new Faker<Degree>()
-                        .RuleFor(d => d.DegreeType, "Бакалавр")
+                        .RuleFor(d => d.DegreeName, "Бакалавр")
                         .RuleFor(d => d.SchoolName, f => f.Lorem.Word())
                         .RuleFor(d => d.StartYear, f.Date.Past())
                         .Generate(),
@@ -81,8 +84,9 @@ public static class HostExtension
     {
         return new Faker<User>()
             .RuleFor(u => u.Id, f => Guid.NewGuid())
-            .RuleFor(u => u.Password, f => "$2a$10$Kw9CVrUSW3SMIOQoY4l35ujBvRitDyP2nprNMFf6mhXoj77056.my")
+            .RuleFor(u => u.Password, f => "$2a$10$.qDt0HaxBEfDvOJQzVQozOLQUo8ANVotdxywO5HHdPyTd2edmJKkG")
             .RuleFor(u => u.Email, f => "bogdanvalman@gmail.com")
+            .RuleFor(u => u.Enabled, true)
             .RuleFor(u => u.AccountType, "GOOGLE")
             .RuleFor(u => u.Rating, f => 1500)
             .RuleFor(u => u.CreatedAt, f => f.Date.Past())
@@ -103,8 +107,8 @@ public static class HostExtension
                     Tags = new List<Tag>(new Faker<Tag>()
                         .RuleFor(t => t.TagName, f => f.Lorem.Word())
                         .Generate(14)),
-                    Hobbies = new List<Hobbie>(new Faker<Hobbie>()
-                        .RuleFor(h => h.HobbieName, f => f.Lorem.Word())
+                    Hobbies = new List<Hobby>(new Faker<Hobby>()
+                        .RuleFor(h => h.HobbyName, f => f.Lorem.Word())
                         .RuleFor(h => h.UserDetailsId, u.Id)
                         .Generate(2)),
                     Pictures = new List<Picture>(new Faker<Picture>()
@@ -114,7 +118,7 @@ public static class HostExtension
                         .RuleFor(p => p.TimeAdded, f.Date.Past())
                         .Generate(4)),
                     Degree = new Faker<Degree>()
-                        .RuleFor(d => d.DegreeType, "Бакалавр")
+                        .RuleFor(d => d.DegreeName, "Бакалавр")
                         .RuleFor(d => d.SchoolName, f => f.Lorem.Word())
                         .RuleFor(d => d.StartYear, f.Date.Past())
                         .Generate(),
@@ -131,4 +135,16 @@ public static class HostExtension
                 })
             .Generate();
     }
+
+    // private static void GenerateInfos()
+    // {
+    //     var info = new List<Info>
+    //     {
+    //         new Info
+    //         {
+    //             Title = "Твоя освіта",
+    //             
+    //         }
+    //     }
+    // }
 }

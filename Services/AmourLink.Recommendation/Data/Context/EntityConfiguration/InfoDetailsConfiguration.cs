@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AmourLink.Recommendation.Data.Context.EntityConfiguration;
 
-public class InfoProfileConfiguration : IEntityTypeConfiguration<InfoUserDetails>
+public class InfoDetailsConfiguration : IEntityTypeConfiguration<InfoUserDetails>
 {
     public void Configure(EntityTypeBuilder<InfoUserDetails> builder)
     {
