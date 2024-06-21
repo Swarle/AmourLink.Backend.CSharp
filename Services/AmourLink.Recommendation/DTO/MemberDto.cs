@@ -15,6 +15,6 @@ public class MemberDto
     public required LocationDto Location { get; set; }
     public DegreeDto? Degree { get; set; }
     public List<PictureDto> Pictures { get; set; } = [];
-    public List<string> Hobbies = [];
+    public List<string> Hobby = [];
     public List<string> Tags = [];
 }

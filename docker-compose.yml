@@ -14,7 +14,7 @@ services:
       dockerfile: AmourLink.Backend.CSharp/Services/AmourLink.Gateway/Dockerfile
       
   amourlink.security:
-    image: danyloz/amourlink-java-security-service:1.7
+    image: danyloz/amourlink-java-security-service:latest
     
   amourlink.swipe:
     image: ${DOCKER_REGISTRY-}swipe:latest
@@ -22,7 +22,7 @@ services:
       context: ..
       dockerfile: AmourLink.Backend.CSharp/Services/AmourLink.Swipe/Dockerfile
       
-  amourlink.matching:
+  amourlink.match:
     image: ${DOCKER_REGISTRY-}matching:latest
     build:
       context: ..
@@ -30,27 +30,27 @@ services:
     depends_on:
       - create-topics
         
-#  amourlink.media:
-#    image: danyloz/amourlink-java-media-service:latest
-#    ports:
-#      - "8005:8080"
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/amourlink
-#      SPRING_DATASOURCE_USERNAME: root
-#      SPRING_DATASOURCE_PASSWORD: rootPassword
-#      SPRING_PROFILES_ACTIVE: docker
-#
-#  amourlink.user:
-#    image: danyloz/amourlink-java-user-service:latest
-#    depends_on:
-#      - amourlink.media
-#    ports:
-#      - "8006:8080"
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/amourlink
-#      SPRING_DATASOURCE_USERNAME: root
-#      SPRING_DATASOURCE_PASSWORD: rootPassword
-#      SPRING_PROFILES_ACTIVE: docker
+  amourlink.media:
+    image: danyloz/amourlink-java-media-service:latest
+    ports:
+      - "8005:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/amourlink
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootPassword
+      SPRING_PROFILES_ACTIVE: docker
+
+  amourlink.user:
+    image: danyloz/amourlink-java-user-service:latest
+    depends_on:
+      - amourlink.media
+    ports:
+      - "8006:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/amourlink
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootPassword
+      SPRING_PROFILES_ACTIVE: docker
     
   zookeeper:
     image: wurstmeister/zookeeper

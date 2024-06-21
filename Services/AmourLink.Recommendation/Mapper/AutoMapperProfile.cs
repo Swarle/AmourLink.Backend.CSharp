@@ -13,8 +13,8 @@ public class AutoMapperProfile : Profile
         CreateMap<UserDetails, MemberDto>();
         CreateMap<User, MemberDto>()
             .IncludeMembers(src => src.UserDetails)
-            .ForMember(dest => dest.Hobbies, opt =>
-                opt.MapFrom(src => src.UserDetails!.Hobbies.Select(h => h.HobbieName).ToList()))
+            .ForMember(dest => dest.Hobby, opt =>
+                opt.MapFrom(src => src.UserDetails!.Hobbies.Select(h => h.HobbyName).ToList()))
             .ForMember(dest => dest.Location, opt => 
                 opt.MapFrom(src => new LocationDto{Longitude = src.UserDetails!.LastLocation!.X, Latitude = src.UserDetails.LastLocation.Y}))
             .ForMember(src => src.Tags, opt =>

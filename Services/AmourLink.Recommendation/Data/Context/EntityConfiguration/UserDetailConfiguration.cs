@@ -14,6 +14,10 @@ public class UserDetailConfiguration : IEntityTypeConfiguration<UserDetails>
         
         builder.Property(e => e.Id)
             .HasColumnName("user_id");
+        builder.Property(e => e.FirstName)
+            .HasColumnName("firstname");
+        builder.Property(e => e.LastName)
+            .HasColumnName("lastname");
         builder.Property(e => e.LastName)
             .HasMaxLength(45);
         builder.Property(e => e.MusicId);
@@ -25,18 +29,15 @@ public class UserDetailConfiguration : IEntityTypeConfiguration<UserDetails>
         builder.HasOne(d => d.Degree)
             .WithMany(d => d.UserDetails)
             .HasForeignKey(d => d.DegreeId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("fk_user_details_degree1");
+            .OnDelete(DeleteBehavior.ClientSetNull);
 
         builder.HasOne(d => d.Music)
             .WithMany(p => p.UserDetails)
-            .HasForeignKey(d => d.MusicId)
-            .HasConstraintName("fk_user_details_music1");
+            .HasForeignKey(d => d.MusicId);
 
         builder.HasOne(d => d.User)
             .WithOne(p => p.UserDetails)
             .HasForeignKey<UserDetails>(d => d.Id)
-            .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("fk_user_details_user_account1");
+            .OnDelete(DeleteBehavior.ClientSetNull);
     }
 }

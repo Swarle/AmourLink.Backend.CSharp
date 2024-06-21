@@ -27,6 +27,20 @@
       "UpstreamHttpMethod": [
         "POST"
       ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/swipe-service/swipe/likes-and-matches",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.swipe",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/swipe-service/swipe/likes-and-matches",
+      "UpstreamHttpMethod": [
+        "GET"
+      ]
     }
   ]
 }

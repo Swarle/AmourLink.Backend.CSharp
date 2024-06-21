@@ -4,24 +4,23 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AmourLink.Recommendation.Data.Context.EntityConfiguration;
 
-public class HobbieConfiguration : IEntityTypeConfiguration<Hobbie>
+public class HobbyConfiguration : IEntityTypeConfiguration<Hobby>
 {
-    public void Configure(EntityTypeBuilder<Hobbie> builder)
+    public void Configure(EntityTypeBuilder<Hobby> builder)
     {
         builder.HasKey(e => e.Id)
             .HasName("PRIMARY");
         
-        builder.ToTable("hobbie");
+        builder.ToTable("hobby");
         
         builder.Property(e => e.Id)
-            .HasColumnName("hobbie_id");
-        builder.Property(e => e.HobbieName)
+            .HasColumnName("hobby_id");
+        builder.Property(e => e.HobbyName)
             .HasMaxLength(45);
 
         builder.HasOne(d => d.UserDetails)
             .WithMany(p => p.Hobbies)
             .HasForeignKey(d => d.UserDetailsId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("fk_user_account_hobbie_user_details1");
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

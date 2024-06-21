@@ -15,7 +15,7 @@ public class DegreeConfiguration : IEntityTypeConfiguration<Degree>
         
         builder.Property(e => e.Id)
             .HasColumnName("degree_id");
-        builder.Property(e => e.DegreeType)
+        builder.Property(e => e.DegreeName)
             .HasMaxLength(45);
         builder.Property(e => e.SchoolName)
             .HasMaxLength(100);

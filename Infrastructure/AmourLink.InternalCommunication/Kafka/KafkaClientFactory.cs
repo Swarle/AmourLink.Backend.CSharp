@@ -18,7 +18,9 @@ public class KafkaClientFactory : IKafkaClientFactory
     {
         return new ConsumerBuilder<TKey, TValue>(new ProducerConfig(options.Consumer)
         {
-            BootstrapServers = options.BootstrapServers
+            BootstrapServers = options.BootstrapServers,
+            
+            
         }).Build();
     }
 }

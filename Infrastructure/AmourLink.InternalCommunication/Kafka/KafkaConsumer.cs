@@ -33,6 +33,8 @@ public class KafkaConsumer<TKey, TValue> : IKafkaConsumer<TKey, TValue>
             var consumer = clientFactory.CreateConsumer<TKey, TValue>(_options);
 
             consumer.Subscribe(topic);
+            
+            _logger.LogInformation($"Subscription to {topic} is successful");
 
             return new ConsumerManager<TKey, TValue, TContract>(consumer, handler, serializer);
         }

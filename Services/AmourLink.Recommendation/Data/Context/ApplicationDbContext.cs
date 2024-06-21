@@ -32,6 +32,8 @@ public class ApplicationDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         
         modelBuilder.SetDefaultModelBuilder<ApplicationDbContext>();
+        
+        
     }
 }
 

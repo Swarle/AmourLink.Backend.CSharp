@@ -33,8 +33,10 @@ public class KafkaConfigurator
         _services.AddHostedService<ConsumerBackgroundService<TKey, TValue, TContract, THandler, TSerializer>>(provider =>
         {
             var kafkaConsumer = provider.GetRequiredService<IKafkaConsumer<TKey, TValue>>();
+            var logger = provider
+                .GetRequiredService<ILogger<ConsumerBackgroundService<TKey, TValue, TContract, THandler, TSerializer>>>();
 
-            return new ConsumerBackgroundService<TKey, TValue, TContract, THandler, TSerializer>(topic, kafkaConsumer, provider);
+            return new ConsumerBackgroundService<TKey, TValue, TContract, THandler, TSerializer>(topic, kafkaConsumer, provider, logger);
         });
         
         return this;

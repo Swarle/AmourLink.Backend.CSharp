@@ -32,11 +32,11 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ConnectionStrings__DefaultConnectionString=server=host.docker.internal;user=root;password=rootPassword;database=amourlink
       - Kafka__BootstrapServers=PLAINTEXT://broker:9092
-      - CommunicationUri__MatchService=http://amourlink.matching:8080/
+      - CommunicationUri__MatchService=http://amourlink.match:8080/
     ports:
       - "8003:8080"
         
-  amourlink.matching:
+  amourlink.match:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080

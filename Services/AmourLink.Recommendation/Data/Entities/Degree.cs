@@ -7,7 +7,7 @@ namespace AmourLink.Recommendation.Data.Entities;
 public class Degree : Entity
 {
     public required string SchoolName { get; set; }
-    public required string DegreeType { get; set; }
+    public required string DegreeName { get; set; }
     public DateTime StartYear { get; set; }
     
     public List<UserDetails> UserDetails = [];
