@@ -16,7 +16,7 @@ public class InfoDetailsConfiguration : IEntityTypeConfiguration<InfoUserDetails
         builder.Property(e => e.InfoId)
             .HasColumnName("info_id");
         builder.Property(e => e.AnswerId)
-            .HasColumnName("info_answer_id");
+            .HasColumnName("answer_id");
         builder.Property(e => e.UserId)
             .HasColumnName("user_id");
 

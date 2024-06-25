@@ -5,8 +5,8 @@ public class InfoUserDetails
     public Guid InfoId { get; set; }
     public Guid UserId { get; set; }
     public Guid AnswerId { get; set; }
-    
-    public required Info Info { get; set; }
-    public required UserDetails UserDetails { get; set; }
-    public required InfoAnswer InfoAnswer { get; set; }
+
+    public Info Info { get; set; } = null!;
+    public UserDetails UserDetails { get; set; } = null!;
+    public InfoAnswer InfoAnswer { get; set; } = null!;
 }

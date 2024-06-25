@@ -6,8 +6,8 @@ public class InfoAnswer : Entity
 {
     public required string Answer { get; set; }
     public Guid InfoId { get; set; }
-    
-    public required Info Info { get; set; }
+
+    public Info Info { get; set; } = null!;
     
     public ICollection<InfoUserDetails> InfoUserDetails { get; set; } = [];
 }

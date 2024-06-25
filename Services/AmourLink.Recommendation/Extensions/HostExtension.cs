@@ -13,11 +13,38 @@ public static class HostExtension
         using var scope = host.Services.CreateScope();
         var services = scope.ServiceProvider;
         var context = services.GetRequiredService<ApplicationDbContext>();
+        
 
-        const string password = "$2a$10$.qDt0HaxBEfDvOJQzVQozOLQUo8ANVotdxywO5HHdPyTd2edmJKkG";
 
+        List<Tag> tags;
+        
+        if (context.Tags.Any())
+            tags = context.Tags.ToList();
+        else
+        {
+            tags =  new Faker<Tag>()
+                .RuleFor(t => t.TagName, f => f.Lorem.Word())
+                .Generate(8);
+            
+            context.Tags.AddRange(tags);
+            context.SaveChanges();
+        }
+
+        List<Info> info;
+
+        if (context.Info.Any())
+            info = context.Info.ToList();
+        else
+        {
+            info = GenerateInfos();
+            context.Info.AddRange(info);
+            context.SaveChanges();
+        }
+            
         if (context.Users.Any())
             return host;
+
+        const string password = "$2a$10$.qDt0HaxBEfDvOJQzVQozOLQUo8ANVotdxywO5HHdPyTd2edmJKkG";
         
         var users = new Faker<User>()
             .RuleFor(u => u.Id, f => Guid.NewGuid())
@@ -33,23 +60,21 @@ public static class HostExtension
                     Id = u.Id,
                     FirstName = f.Name.FirstName(),
                     LastName = f.Name.LastName(),
-                    Age = f.Random.UInt(18, 70),
+                    Age = f.Random.Int(18, 70),
                     Bio = f.Lorem.Paragraph(),
                     Height = f.Random.Int(120, 199),
                     Occupation = f.Person.Company.Name,
                     Nationality = f.Lorem.Word(),
-                    Gender = ((Name.Gender)f.PickRandom(0, 1)).ToString(),
+                    Gender = ((Name.Gender)f.PickRandom(0, 1)).ToString().ToUpper(),
                     User = u,
                     LastLocation = new Point(f.Random.Double(50.30d,50.55d),f.Random.Double(30.25d, 30.75d)),
-                    Tags = new List<Tag>(new Faker<Tag>()
-                        .RuleFor(t => t.TagName, f => f.Lorem.Word())
-                        .Generate(14)),
+                    Tags = tags,
                     Hobbies = new List<Hobby>(new Faker<Hobby>()
                         .RuleFor(h => h.HobbyName, f => f.Lorem.Word())
-                        .RuleFor(h => h.UserDetailsId, u.Id)
+                        .RuleFor(h => h.UserId, u.Id)
                         .Generate(2)),
                     Pictures = new List<Picture>(new Faker<Picture>()
-                        .RuleFor(p => p.UserDetailsId, u.Id)
+                        .RuleFor(p => p.UserId, u.Id)
                         .RuleFor(p => p.PictureUrl, f => f.Image.PicsumUrl())
                         .RuleFor(p => p.Position, f.Random.Number(1,4))
                         .RuleFor(p => p.TimeAdded, f.Date.Past())
@@ -57,8 +82,14 @@ public static class HostExtension
                     Degree = new Faker<Degree>()
                         .RuleFor(d => d.DegreeName, "Бакалавр")
                         .RuleFor(d => d.SchoolName, f => f.Lorem.Word())
-                        .RuleFor(d => d.StartYear, f.Date.Past())
+                        .RuleFor(d => d.DegreeType, f => f.Lorem.Word())
                         .Generate(),
+                    Infos = info.Select(i => new InfoUserDetails
+                    {
+                        InfoId = i.Id,
+                        AnswerId = f.PickRandom(i.Answers.Select(a => a.Id)),
+                        UserId = u.Id
+                    }).ToList()
                 }
 
             )
@@ -96,23 +127,20 @@ public static class HostExtension
                     Id = u.Id,
                     FirstName = f.Name.FirstName(),
                     LastName = f.Name.LastName(),
-                    Age = f.Random.UInt(18, 70),
+                    Age = f.Random.Int(18, 70),
                     Bio = f.Lorem.Paragraph(),
                     Height = f.Random.Int(120, 199),
                     Occupation = f.Person.Company.Name,
                     Nationality = f.Lorem.Word(),
-                    Gender = ((Name.Gender)f.PickRandom(0, 1)).ToString(),
+                    Gender = ((Name.Gender)f.PickRandom(0, 1)).ToString().ToUpper(),
                     User = u,
                     LastLocation = new Point(f.Random.Double(50.30d,50.55d),f.Random.Double(30.25d, 30.75d)),
-                    Tags = new List<Tag>(new Faker<Tag>()
-                        .RuleFor(t => t.TagName, f => f.Lorem.Word())
-                        .Generate(14)),
                     Hobbies = new List<Hobby>(new Faker<Hobby>()
                         .RuleFor(h => h.HobbyName, f => f.Lorem.Word())
-                        .RuleFor(h => h.UserDetailsId, u.Id)
+                        .RuleFor(h => h.UserId, u.Id)
                         .Generate(2)),
                     Pictures = new List<Picture>(new Faker<Picture>()
-                        .RuleFor(p => p.UserDetailsId, u.Id)
+                        .RuleFor(p => p.UserId, u.Id)
                         .RuleFor(p => p.PictureUrl, f => f.Image.PicsumUrl())
                         .RuleFor(p => p.Position, f.Random.Number(1,4))
                         .RuleFor(p => p.TimeAdded, f.Date.Past())
@@ -120,7 +148,7 @@ public static class HostExtension
                     Degree = new Faker<Degree>()
                         .RuleFor(d => d.DegreeName, "Бакалавр")
                         .RuleFor(d => d.SchoolName, f => f.Lorem.Word())
-                        .RuleFor(d => d.StartYear, f.Date.Past())
+                        .RuleFor(d => d.DegreeType, f => f.Lorem.Word())
                         .Generate(),
                 }
 
@@ -136,15 +164,63 @@ public static class HostExtension
             .Generate();
     }
 
-    // private static void GenerateInfos()
-    // {
-    //     var info = new List<Info>
-    //     {
-    //         new Info
-    //         {
-    //             Title = "Твоя освіта",
-    //             
-    //         }
-    //     }
-    // }
+    private static List<Info> GenerateInfos()
+    {
+        var info = new List<Info>
+        {
+            new()
+            {
+                Title = "Знак зодіаку",
+                Answers = new List<InfoAnswer>
+                {
+                    new() { Answer = "Козеріг" },
+                    new() { Answer = "Водолій" },
+                    new() { Answer = "Риби" },
+                    new() { Answer = "Овен" },
+                    new() { Answer = "Телець" },
+                    new() { Answer = "Близнюки" },
+                    new() { Answer = "Рак" },
+                    new() { Answer = "Лев" },
+                    new() { Answer = "Діва" },
+                    new() { Answer = "Терези" },
+                    new() { Answer = "Скорпіон" },
+                    new() { Answer = "Стрілець" },
+                }
+            },
+            new()
+            {
+                Title = "Твій стиль спілкування",
+                Answers = new List<InfoAnswer>
+                {
+                    new(){Answer = "Онлайн спілкування"},
+                    new(){Answer = "Краще зустрітися"},
+                    new(){Answer = "Рідко відповідаю"},
+                }
+            },
+            new()
+            {
+                Title = "Шкідливі звички",
+                Answers = new List<InfoAnswer>
+                {
+                    new(){Answer = "Курю та п'ю"},
+                    new(){Answer = "Тільки курю"},
+                    new(){Answer = "П'ю по святах"},
+                    new(){Answer = "Немає",
+                    }
+                }
+            },
+            new()
+            {
+                Title = "Характер",
+                Answers = new List<InfoAnswer>
+                {
+                    new(){Answer = "Інтроверт"},
+                    new(){Answer = "Екстраверт"},
+                    new(){Answer = "Усе і відразу"},
+                }
+            },
+        };
+
+        return info;
+    }
 }

@@ -15,7 +15,7 @@
       ]
     },
     {
-      "DownstreamPathTemplate": "/login",
+      "DownstreamPathTemplate": "/api/security-service/login",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "DownstreamPathTemplate": "/login/google",
+      "DownstreamPathTemplate": "/api/security-service/login/google",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {

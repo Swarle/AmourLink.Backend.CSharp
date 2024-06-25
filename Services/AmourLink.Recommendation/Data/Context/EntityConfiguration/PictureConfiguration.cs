@@ -22,8 +22,7 @@ public class PictureConfiguration : IEntityTypeConfiguration<Picture>
 
         builder.HasOne(d => d.UserDetails)
             .WithMany(p => p.Pictures)
-            .HasForeignKey(d => d.UserDetailsId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("fk_picture_user_details1");
+            .HasForeignKey(d => d.UserId)
+            .OnDelete(DeleteBehavior.ClientSetNull);
     }
 }

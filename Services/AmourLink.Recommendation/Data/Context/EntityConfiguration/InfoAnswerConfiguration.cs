@@ -14,7 +14,7 @@ public class InfoAnswerConfiguration : IEntityTypeConfiguration<InfoAnswer>
         builder.ToTable("info_answer");
 
         builder.Property(e => e.Id)
-            .HasColumnName("info_answer_id");
+            .HasColumnName("answer_id");
 
         builder.HasOne(e => e.Info)
             .WithMany(e => e.Answers)

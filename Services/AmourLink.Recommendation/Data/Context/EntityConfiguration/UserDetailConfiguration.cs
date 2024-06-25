@@ -26,11 +26,6 @@ public class UserDetailConfiguration : IEntityTypeConfiguration<UserDetails>
         builder.Property(e => e.Occupation)
             .HasMaxLength(45);
 
-        builder.HasOne(d => d.Degree)
-            .WithMany(d => d.UserDetails)
-            .HasForeignKey(d => d.DegreeId)
-            .OnDelete(DeleteBehavior.ClientSetNull);
-
         builder.HasOne(d => d.Music)
             .WithMany(p => p.UserDetails)
             .HasForeignKey(d => d.MusicId);

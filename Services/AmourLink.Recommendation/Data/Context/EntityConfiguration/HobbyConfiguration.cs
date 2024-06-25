@@ -20,7 +20,7 @@ public class HobbyConfiguration : IEntityTypeConfiguration<Hobby>
 
         builder.HasOne(d => d.UserDetails)
             .WithMany(p => p.Hobbies)
-            .HasForeignKey(d => d.UserDetailsId)
+            .HasForeignKey(d => d.UserId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

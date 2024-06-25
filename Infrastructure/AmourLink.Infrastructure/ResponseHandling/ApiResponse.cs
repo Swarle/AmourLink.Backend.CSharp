@@ -1,11 +1,12 @@
 ﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace AmourLink.Infrastructure.ResponseHandling;
 
 public class ApiResponse
 {
-    [JsonPropertyName("ResponseType")]
-    public string ResponseTypeValue { get; set; } = ResponseType.Success.ToString();
+    [JsonProperty("ResponseType")]
+    public string ResponseTypeValue { get; set; } = ResponseType.Success.ToString().ToUpper();
     public object? Result { get; set; }
     public Dictionary<string, string> ErrorMessages { get; set; } = [];
     
