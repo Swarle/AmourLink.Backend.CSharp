@@ -9,11 +9,11 @@ public class HttpException : Exception
         StatusCode = statusCode;
     }
     public HttpException(HttpStatusCode statusCode, Dictionary<string, string> errorMessages,
-        object? result = null,ResponseType responseType = ResponseType.ValidationError)
+        object? result = null,ResponseType responseType = ResponseType.ValidationFailed)
     {
         StatusCode = statusCode;
         ErrorMessages = errorMessages;
-        ResponseTypeValue = responseType;
+        ResponseType = responseType;
         Result = result;
     }
     public HttpException(HttpStatusCode statusCode, string errorMessage,
@@ -21,12 +21,12 @@ public class HttpException : Exception
     {
         StatusCode = statusCode;
         ErrorMessages.Add("default", errorMessage);
-        ResponseTypeValue = responseType;
+        ResponseType = responseType;
         Result = result;
     }
     
     public HttpStatusCode StatusCode { get; set; }
     public Dictionary<string, string> ErrorMessages { get; set; } = [];
-    public ResponseType ResponseTypeValue { get; set; } = ResponseType.HttpError;
+    public ResponseType ResponseType { get; set; } = ResponseType.HttpError;
     public object? Result { get; set; }
 }

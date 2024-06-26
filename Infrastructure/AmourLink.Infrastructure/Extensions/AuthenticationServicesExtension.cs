@@ -1,5 +1,4 @@
-﻿using System.Text;
-using AmourLink.Infrastructure.StaticConstants;
+﻿using AmourLink.Infrastructure.StaticConstants;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -4,5 +4,5 @@ public enum ResponseType
 {
     Success,
     HttpError,
-    ValidationError
+    ValidationFailed
 }

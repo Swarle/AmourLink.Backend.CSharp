@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using AmourLink.Infrastructure.Data.Abstract;
+﻿using AmourLink.Infrastructure.Data.Abstract;
+using AmourLink.Recommendation.Data.Entities.Enums;
 using NetTopologySuite.Geometries;
 
 namespace AmourLink.Recommendation.Data.Entities;
@@ -15,7 +14,7 @@ public class UserDetails : Entity
     public string? Occupation { get; set; }
     public string? Nationality { get; set; }
     public Guid? MusicId { get; set; }
-    public required string Gender { get; set; }
+    public required Gender Gender { get; set; }
     public Point? LastLocation { get; set; }
     public Degree? Degree { get; set; }
     public User User { get; set; } = null!;

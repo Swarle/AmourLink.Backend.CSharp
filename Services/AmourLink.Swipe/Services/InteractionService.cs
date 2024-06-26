@@ -12,10 +12,12 @@ namespace AmourLink.Swipe.Services;
 public class InteractionService : IInteractionService
 {
     private readonly IRepository<SwipeEntity> _swipeRepository;
+    private readonly IMatchHttpService _matchHttpService;
 
-    public InteractionService(IRepository<SwipeEntity> swipeRepository)
+    public InteractionService(IRepository<SwipeEntity> swipeRepository, IMatchHttpService matchHttpService)
     {
         _swipeRepository = swipeRepository;
+        _matchHttpService = matchHttpService;
     }
 
     public async Task<InteractionDto> GetInteractedUsersIdAsync(Guid userId,CancellationToken cancellationToken = default)
@@ -32,12 +34,18 @@ public class InteractionService : IInteractionService
 
         var likedId = (await _swipeRepository.GetAllAsync(likeSpecification, cancellationToken))
             .Select(l => l.UserReceiverId).ToList();
-
-        dislikedId.AddRange(likedId);
+        
+        var excludeId = new List<Guid>(dislikedId);
+        
+        excludeId.AddRange(likedId);
+        
+        var matchedId = await _matchHttpService.GetMatchedUsersId(userId, cancellationToken);
+        
+        excludeId.AddRange(matchedId);
         
         var interactionDto = new InteractionDto
         {
-            ExcludeId = dislikedId,
+            ExcludeId = excludeId,
         };
 
         return interactionDto;

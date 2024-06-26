@@ -1,5 +1,6 @@
 ﻿using AmourLink.Recommendation.Data.Context;
 using AmourLink.Recommendation.Data.Entities;
+using AmourLink.Recommendation.Data.Entities.Enums;
 using Bogus;
 using Bogus.DataSets;
 using NetTopologySuite.Geometries;
@@ -51,7 +52,7 @@ public static class HostExtension
             .RuleFor(u => u.Password, password)
             .RuleFor(u => u.Enabled, true)
             .RuleFor(u => u.Email, f => f.Internet.Email())
-            .RuleFor(u => u.AccountType, "LOCAL")
+            .RuleFor(u => u.AccountType, AccountType.Local)
             .RuleFor(u => u.Rating, f => f.Random.Int(600, 3000))
             .RuleFor(u => u.CreatedAt, f => f.Date.Past())
             .RuleFor(u => u.UserDetails, (f, u) =>
@@ -65,7 +66,7 @@ public static class HostExtension
                     Height = f.Random.Int(120, 199),
                     Occupation = f.Person.Company.Name,
                     Nationality = f.Lorem.Word(),
-                    Gender = ((Name.Gender)f.PickRandom(0, 1)).ToString().ToUpper(),
+                    Gender = (Gender)f.PickRandom(0, 1),
                     User = u,
                     LastLocation = new Point(f.Random.Double(50.30d,50.55d),f.Random.Double(30.25d, 30.75d)),
                     Tags = tags,
@@ -98,7 +99,7 @@ public static class HostExtension
                 {
                     MinAge = 18,
                     MaxAge = 44,
-                    Gender = "Female",
+                    Gender = (GenderPreference)f.PickRandom(0, 1, 2),
                     DistanceRange = 25,
                 })
             .Generate(100);
@@ -118,7 +119,7 @@ public static class HostExtension
             .RuleFor(u => u.Password, f => "$2a$10$.qDt0HaxBEfDvOJQzVQozOLQUo8ANVotdxywO5HHdPyTd2edmJKkG")
             .RuleFor(u => u.Email, f => "bogdanvalman@gmail.com")
             .RuleFor(u => u.Enabled, true)
-            .RuleFor(u => u.AccountType, "GOOGLE")
+            .RuleFor(u => u.AccountType, AccountType.Google)
             .RuleFor(u => u.Rating, f => 1500)
             .RuleFor(u => u.CreatedAt, f => f.Date.Past())
             .RuleFor(u => u.UserDetails, (f, u) =>
@@ -132,7 +133,7 @@ public static class HostExtension
                     Height = f.Random.Int(120, 199),
                     Occupation = f.Person.Company.Name,
                     Nationality = f.Lorem.Word(),
-                    Gender = ((Name.Gender)f.PickRandom(0, 1)).ToString().ToUpper(),
+                    Gender = (Gender)f.PickRandom(0, 1),
                     User = u,
                     LastLocation = new Point(f.Random.Double(50.30d,50.55d),f.Random.Double(30.25d, 30.75d)),
                     Hobbies = new List<Hobby>(new Faker<Hobby>()
@@ -158,7 +159,7 @@ public static class HostExtension
                 {
                     MinAge = 18,
                     MaxAge = 44,
-                    Gender = "Female",
+                    Gender = (GenderPreference)f.PickRandom(0, 1, 2),
                     DistanceRange = 100,
                 })
             .Generate();

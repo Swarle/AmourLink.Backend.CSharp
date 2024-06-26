@@ -2,6 +2,7 @@ using AmourLink.Infrastructure.Extensions;
 using AmourLink.Infrastructure.Middlewares;
 using AmourLink.Recommendation.Data.Context;
 using AmourLink.Recommendation.Extensions;
+using Newtonsoft.Json.Converters;
 
 namespace AmourLink.Recommendation;
 
@@ -10,14 +11,9 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddControllersConfigured();
         
-        builder.Services.AddControllers().AddNewtonsoftJson(options =>
-        {
-            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-        });
-
-        builder.Services.Configure<RouteOptions>(opt => opt.LowercaseUrls = true);
-
         builder.Services.AddDataServices<ApplicationDbContext>(builder.Configuration);
         builder.Services.AddServices(builder.Configuration);
 

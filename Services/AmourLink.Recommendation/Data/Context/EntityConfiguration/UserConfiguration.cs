@@ -1,4 +1,6 @@
-﻿using AmourLink.Recommendation.Data.Entities;
+﻿using AmourLink.Infrastructure.Extensions;
+using AmourLink.Recommendation.Data.Entities;
+using AmourLink.Recommendation.Data.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -25,5 +27,10 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasColumnName("password")
             .HasMaxLength(255)
             .IsRequired();
+        
+        builder.Property(e => e.AccountType)
+            .HasConversion(
+                v => v.ToString().ToUpperInvariant(),
+                v => (AccountType)Enum.Parse(typeof(AccountType), v.ToPascalCase()));
     }
 }

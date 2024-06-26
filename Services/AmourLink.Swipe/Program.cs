@@ -10,13 +10,8 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        
-        builder.Services.AddControllers().AddNewtonsoftJson(options =>
-        {
-            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-        });
-        
-        builder.Services.Configure<RouteOptions>(opt => opt.LowercaseUrls = true);
+
+        builder.Services.AddControllersConfigured();
         
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddDataServices<ApplicationDbContext>(builder.Configuration);

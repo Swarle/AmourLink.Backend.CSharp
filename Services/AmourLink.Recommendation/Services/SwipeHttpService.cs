@@ -1,7 +1,12 @@
 ﻿using System.Net;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using AmourLink.Infrastructure.Helpers;
 using AmourLink.Infrastructure.ResponseHandling;
 using AmourLink.Recommendation.DTO;
 using AmourLink.Recommendation.Services.Interfaces;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace AmourLink.Recommendation.Services;
 
@@ -29,8 +34,15 @@ public class SwipeHttpService : ISwipeHttpService
             };
         }
 
-        var result = await response.Content.ReadFromJsonAsync<ApiResponse<InteractionDto>>(cancellationToken) ??
-            throw new NullReferenceException($"Response body from {_httpClient.BaseAddress + requestUri} is null");
+        var serializerSettings = new JsonSerializerSettings();
+        
+        serializerSettings.Converters.Add(new StringEnumConverter(new UpperCaseNamingStrategy()));
+
+        var resultJson = await response.Content.ReadAsStringAsync(cancellationToken);
+
+        var result = JsonConvert
+                         .DeserializeObject<ApiResponse<InteractionDto>>(resultJson, serializerSettings) ??
+                     throw new NullReferenceException($"Response from {_httpClient.BaseAddress + requestUri} is null");;
         
         if(result.Result == null)
             throw new NullReferenceException($"Body result from {_httpClient.BaseAddress + requestUri} is null");
