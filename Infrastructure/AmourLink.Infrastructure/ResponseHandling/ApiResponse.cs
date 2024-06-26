@@ -1,13 +1,10 @@
-﻿using System.Text.Json.Serialization;
-
-namespace AmourLink.Infrastructure.ResponseHandling;
+﻿namespace AmourLink.Infrastructure.ResponseHandling;
 
 public class ApiResponse
 {
-    [JsonPropertyName("ResponseType")]
-    public string ResponseTypeValue { get; set; } = ResponseType.Success.ToString();
+    public ResponseType ResponseType { get; set; } = ResponseType.Success;
     public object? Result { get; set; }
-    public Dictionary<string, string> ErrorMessages { get; set; } = [];
+    public Dictionary<string, string> ErrorMessages { get; init; } = [];
     
     public ApiResponse()
     {
@@ -16,7 +13,7 @@ public class ApiResponse
     
     public ApiResponse(ResponseType responseType, string? errorMessage = null, object? result = null)
     {
-        ResponseTypeValue = responseType.ToString();
+        ResponseType = responseType;
         Result = result;
         
         if(!string.IsNullOrWhiteSpace(errorMessage))
@@ -25,7 +22,7 @@ public class ApiResponse
     
     public ApiResponse(ResponseType responseType, Dictionary<string,string> errorMessages, object? result = null)
     {
-        ResponseTypeValue = responseType.ToString();
+        ResponseType = responseType;
         Result = result;
         ErrorMessages = errorMessages;
     }
@@ -42,7 +39,7 @@ public class ApiResponse
     {
         return new ApiResponse
         {
-            ResponseTypeValue = exception.ResponseTypeValue.ToString(),
+            ResponseType = exception.ResponseType,
             Result = exception.Result,
             ErrorMessages = exception.ErrorMessages
         };
@@ -51,7 +48,7 @@ public class ApiResponse
     {
         var response =  new ApiResponse
         {
-            ResponseTypeValue = ResponseType.HttpError.ToString(),
+            ResponseType = ResponseType.HttpError,
             ErrorMessages = new Dictionary<string, string>
             {
                 {"default", exception.Message}

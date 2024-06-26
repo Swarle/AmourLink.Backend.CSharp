@@ -34,9 +34,9 @@ public class OneLessThenOtherAttribute : ValidationAttribute
         var minValue = (int)(minPropertyInfo.GetValue(validationContext.ObjectInstance) ?? throw new InvalidCastException());
         var maxValue = (int)(maxPropertyInfo.GetValue(validationContext.ObjectInstance) ?? throw new InvalidCastException());
 
-        if (minValue >= maxValue)
+        if (minValue > maxValue)
             return new ValidationResult(ErrorMessage ??
-                                        $"The value of {{_minProperty}} must be less than {{_maxProperty}}");
+                                        $"The value of {_minProperty} must be less than {_maxProperty}");
         
         return ValidationResult.Success;
     }

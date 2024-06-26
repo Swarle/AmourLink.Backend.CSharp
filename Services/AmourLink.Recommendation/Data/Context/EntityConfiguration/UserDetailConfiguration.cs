@@ -1,4 +1,6 @@
-﻿using AmourLink.Recommendation.Data.Entities;
+﻿using AmourLink.Infrastructure.Extensions;
+using AmourLink.Recommendation.Data.Entities;
+using AmourLink.Recommendation.Data.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -20,16 +22,14 @@ public class UserDetailConfiguration : IEntityTypeConfiguration<UserDetails>
             .HasColumnName("lastname");
         builder.Property(e => e.LastName)
             .HasMaxLength(45);
-        builder.Property(e => e.MusicId);
         builder.Property(e => e.Nationality)
             .HasMaxLength(45);
         builder.Property(e => e.Occupation)
             .HasMaxLength(45);
-
-        builder.HasOne(d => d.Degree)
-            .WithMany(d => d.UserDetails)
-            .HasForeignKey(d => d.DegreeId)
-            .OnDelete(DeleteBehavior.ClientSetNull);
+        builder.Property(e => e.Gender)
+            .HasConversion(
+                v => v.ToString().ToUpperInvariant(),
+                v => (Gender)Enum.Parse(typeof(Gender), v.ToPascalCase()));
 
         builder.HasOne(d => d.Music)
             .WithMany(p => p.UserDetails)

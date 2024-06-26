@@ -1,0 +1,130 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/add",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/add",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/get-all",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/get-all",
+      "UpstreamHttpMethod": [
+        "GET"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/update",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/update",
+      "UpstreamHttpMethod": [
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/{any}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/{any}",
+      "UpstreamHttpMethod": [
+        "GET"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/add-picture",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/add-picture",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/swap-pictures",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/swap-pictures",
+      "UpstreamHttpMethod": [
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/delete-picture/{any}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/delete-picture/{any}",
+      "UpstreamHttpMethod": [
+        "DELETE"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/info/{any}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/info/{any}",
+      "UpstreamHttpMethod": [
+        "GET"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/info/get-all",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/info/get-all",
+      "UpstreamHttpMethod": [
+        "GET"
+      ]
+    }
+  ]
+}

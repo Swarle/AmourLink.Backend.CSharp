@@ -6,7 +6,7 @@ namespace AmourLink.Recommendation.Data.Entities;
 
 public class Hobby : Entity
 {
-    public Guid UserDetailsId { get; set; }
+    public Guid UserId { get; set; }
     public required string HobbyName { get; set; }
     
     public required UserDetails UserDetails { get; set; }

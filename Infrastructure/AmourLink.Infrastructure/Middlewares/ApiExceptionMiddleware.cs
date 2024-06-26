@@ -1,10 +1,12 @@
 ﻿using System.Net;
+using AmourLink.Infrastructure.Helpers;
 using AmourLink.Infrastructure.ResponseHandling;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
 namespace AmourLink.Infrastructure.Middlewares
@@ -14,15 +16,7 @@ namespace AmourLink.Infrastructure.Middlewares
         private readonly RequestDelegate _next;
         private readonly ILogger<ApiExceptionMiddleware> _logger;
         private readonly IHostEnvironment _env;
-        private readonly JsonSerializerSettings _serializerSettings = new ()
-        {
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy()
-            },
-            Formatting = Formatting.Indented,
-            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-        };
+        private readonly JsonSerializerSettings _serializerSettings;
 
         public ApiExceptionMiddleware(RequestDelegate next,
             ILogger<ApiExceptionMiddleware> logger, IHostEnvironment env)
@@ -30,6 +24,18 @@ namespace AmourLink.Infrastructure.Middlewares
             _next = next;
             _logger = logger;
             _env = env;
+            
+            _serializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                },
+                Formatting = Formatting.Indented,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            };
+            
+            _serializerSettings.Converters.Add(new StringEnumConverter(new UpperCaseNamingStrategy()));
         }
 
         public async Task Invoke(HttpContext httpContext)
@@ -59,7 +65,7 @@ namespace AmourLink.Infrastructure.Middlewares
                 _logger.LogError(ex, ex.ErrorMessages.ToString());
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int) ex.StatusCode;
-
+                
                 var jsonResponse = JsonConvert.SerializeObject(ApiResponse.HttpException(ex),
                     _serializerSettings);
                 

@@ -20,14 +20,12 @@ public class LanguageConfiguration : IEntityTypeConfiguration<Language>
 
         builder.HasMany(d => d.UserDetails)
             .WithMany(p => p.Languages)
-            .UsingEntity("language_user_details",
+            .UsingEntity("user_details_language",
                 l => l.HasOne(typeof(UserDetails))
                     .WithMany()
-                    .HasForeignKey("user_details_id")
-                    .HasConstraintName("fk_language_has_user_details_user_details1"),
+                    .HasForeignKey("user_id"),
                 r => r.HasOne(typeof(Language))
                     .WithMany()
-                    .HasForeignKey("language_id")
-                    .HasConstraintName("fk_language_has_user_details_language1"));
+                    .HasForeignKey("language_id"));
     }
 }

@@ -14,12 +14,15 @@ public class DegreeConfiguration : IEntityTypeConfiguration<Degree>
         builder.ToTable("degree");
         
         builder.Property(e => e.Id)
-            .HasColumnName("degree_id");
+            .HasColumnName("user_id");
         builder.Property(e => e.DegreeName)
             .HasMaxLength(45);
         builder.Property(e => e.SchoolName)
             .HasMaxLength(100);
-        builder.Property(e => e.StartYear)
-            .HasColumnType("datetime");
+        
+        builder.HasOne(d => d.UserDetails)
+            .WithOne(p => p.Degree)
+            .HasForeignKey<Degree>(d => d.Id)
+            .OnDelete(DeleteBehavior.ClientSetNull);
     }
 }
