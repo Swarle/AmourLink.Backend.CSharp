@@ -30,7 +30,7 @@ services:
     depends_on:
       - create-topics
         
-  amourlink.media:
+  media-service:
     image: danyloz/amourlink-java-media-service:latest
     ports:
       - "8005:8080"
@@ -43,45 +43,43 @@ services:
   amourlink.user:
     image: danyloz/amourlink-java-user-service:latest
     depends_on:
-      - amourlink.media
+      - media-service
     ports:
       - "8006:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/amourlink
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: rootPassword
-      SPRING_PROFILES_ACTIVE: docker
-      
-  amourlink.notification-email:
-    image: danyloz/amourlink-java-email-service:latest
-    depends_on:
-      - broker
-    ports:
-      - "8007:8080"
-    
-    
-    
+      SPRING_PROFILES_ACTIVE: docker-update
+          
   zookeeper:
     image: wurstmeister/zookeeper
 
-  broker:
+  kafka:
     image: wurstmeister/kafka
-    hostname: broker
+    hostname: kafka
     depends_on:
       - zookeeper
+        
+  amourlink.notification-email:
+    image: danyloz/amourlink-java-email-service:latest
+    depends_on:
+      - kafka
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
 
 
   create-topics:
     image: wurstmeister/kafka
     depends_on:
-      - broker
+      - kafka
     entrypoint:
       - /bin/sh
       - -c
       - |
         # Wait for the Kafka broker to be ready
         echo "Waiting for Kafka broker to be ready..."
-        while ! nc -z broker 9092; do   
+        while ! nc -z kafka 9092; do   
           sleep 1
         done
         echo "Kafka broker is ready"
@@ -89,4 +87,5 @@ services:
         # Create topics
         kafka-topics.sh --create --topic SwipeEvent --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
         kafka-topics.sh --create --topic RatingEvent --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
+        kafka-topics.sh --create --topic email-service-send-email --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
 

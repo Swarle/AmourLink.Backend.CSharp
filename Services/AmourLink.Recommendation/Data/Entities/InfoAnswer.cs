@@ -9,5 +9,5 @@ public class InfoAnswer : Entity
 
     public Info Info { get; set; } = null!;
     
-    public ICollection<InfoUserDetails> InfoUserDetails { get; set; } = [];
+    public ICollection<InfoDetails> InfoDetails { get; set; } = [];
 }

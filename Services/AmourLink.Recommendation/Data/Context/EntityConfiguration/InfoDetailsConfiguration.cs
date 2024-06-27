@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AmourLink.Recommendation.Data.Context.EntityConfiguration;
 
-public class InfoDetailsConfiguration : IEntityTypeConfiguration<InfoUserDetails>
+public class InfoDetailsConfiguration : IEntityTypeConfiguration<InfoDetails>
 {
-    public void Configure(EntityTypeBuilder<InfoUserDetails> builder)
+    public void Configure(EntityTypeBuilder<InfoDetails> builder)
     {
         builder.HasKey(e => new { e.InfoId, e.AnswerId, e.UserId })
             .HasName("PRIMARY");
@@ -21,17 +21,17 @@ public class InfoDetailsConfiguration : IEntityTypeConfiguration<InfoUserDetails
             .HasColumnName("user_id");
 
         builder.HasOne(e => e.Info)
-            .WithMany(e => e.InfoUserDetails)
+            .WithMany(e => e.InfoDetails)
             .HasForeignKey(e => e.InfoId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(e => e.InfoAnswer)
-            .WithMany(e => e.InfoUserDetails)
+            .WithMany(e => e.InfoDetails)
             .HasForeignKey(e => e.AnswerId)
             .OnDelete(DeleteBehavior.Cascade);
         
         builder.HasOne(e => e.UserDetails)
-            .WithMany(e => e.Infos)
+            .WithMany(e => e.InfoDetails)
             .HasForeignKey(e => e.UserId)
             .OnDelete(DeleteBehavior.Cascade);
     }

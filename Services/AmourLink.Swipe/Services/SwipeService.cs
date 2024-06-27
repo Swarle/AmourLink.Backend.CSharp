@@ -52,7 +52,7 @@ public class SwipeService : ISwipeService
             throw new HttpException(HttpStatusCode.Conflict,
                 "A like already exists from current user to receiver");
         
-        await ProduceToRatingEventAsync(RatingKafkaMessage.Like(currentUserId, receiverId));
+        // await ProduceToRatingEventAsync(RatingKafkaMessage.Like(currentUserId, receiverId));
 
         var mutualLikeSpecification = new LikeByUserIdSpecification(receiverId, currentUserId);
 

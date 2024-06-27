@@ -125,6 +125,146 @@
       "UpstreamHttpMethod": [
         "GET"
       ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/update-basic",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/update-basic",
+      "UpstreamHttpMethod": [
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/update-bio",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/update-bio",
+      "UpstreamHttpMethod": [
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/update-occupation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/update-occupation",
+      "UpstreamHttpMethod": [
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/update-last-location",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/update-last-location",
+      "UpstreamHttpMethod": [
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/update-degree",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/update-degree",
+      "UpstreamHttpMethod": [
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/add-hobby",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/add-hobby",
+      "UpstreamHttpMethod": [
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/unassign-hobby/{any}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/unassign-hobby/{any}",
+      "UpstreamHttpMethod": [
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/add-language",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/add-language",
+      "UpstreamHttpMethod": [
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/add-info-details",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/add-info-details",
+      "UpstreamHttpMethod": [
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user-service/profile/delete-info-details/{any}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.user",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user-service/profile/delete-info-details/{any}",
+      "UpstreamHttpMethod": [
+        "DELETE"
+      ]
     }
   ]
 }
