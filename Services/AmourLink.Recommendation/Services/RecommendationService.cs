@@ -62,7 +62,8 @@ namespace AmourLink.Recommendation.Services
                 Range = currentUser.UserPreference.DistanceRange,
                 UserRating = currentUser.Rating,
                 CurrentUserId = currentUserId,
-                ExcludeId = interaction.ExcludeId
+                ExcludeId = interaction.ExcludeId,
+                GenderPreference = currentUser.UserPreference.Gender
             });
             
             var pagedResult = await _userRepository.GetPagedListAsync(userWithProfileSpecification,
@@ -78,7 +79,7 @@ namespace AmourLink.Recommendation.Services
 
             var feedDto = new FeedDto
             {
-                Member = _mapper.Map<MemberDto>(user),
+                Profile = _mapper.Map<ProfileDto>(user),
                 Interaction = feedParams.Interaction == null ? interaction : null
             };
             

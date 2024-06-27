@@ -15,6 +15,7 @@ public class UserDetails : Entity
     public string? Nationality { get; set; }
     public Guid? MusicId { get; set; }
     public required Gender Gender { get; set; }
+    
     public Point? LastLocation { get; set; }
     public Degree? Degree { get; set; }
     public User User { get; set; } = null!;
@@ -23,5 +24,5 @@ public class UserDetails : Entity
     public ICollection<Picture> Pictures { get; set; } = [];
     public ICollection<Language> Languages { get; set; } = [];
     public ICollection<Tag> Tags { get; set; } = [];
-    public ICollection<InfoUserDetails> Infos { get; set; } = [];
+    public ICollection<InfoDetails> InfoDetails { get; set; } = [];
 }

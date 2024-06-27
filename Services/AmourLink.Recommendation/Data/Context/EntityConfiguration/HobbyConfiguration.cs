@@ -18,9 +18,14 @@ public class HobbyConfiguration : IEntityTypeConfiguration<Hobby>
         builder.Property(e => e.HobbyName)
             .HasMaxLength(45);
 
-        builder.HasOne(d => d.UserDetails)
+        builder.HasMany(d => d.UserDetails)
             .WithMany(p => p.Hobbies)
-            .HasForeignKey(d => d.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .UsingEntity("user_details_hobby",
+                l => l.HasOne(typeof(UserDetails))
+                    .WithMany()
+                    .HasForeignKey("user_id"),
+                r => r.HasOne(typeof(Hobby))
+                    .WithMany()
+                    .HasForeignKey("hobby_id"));
     }
 }

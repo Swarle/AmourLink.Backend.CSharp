@@ -1,6 +1,6 @@
 ﻿namespace AmourLink.Recommendation.Data.Entities;
 
-public class InfoUserDetails
+public class InfoDetails
 {
     public Guid InfoId { get; set; }
     public Guid UserId { get; set; }

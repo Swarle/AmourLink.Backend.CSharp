@@ -29,6 +29,20 @@
       ]
     },
     {
+      "DownstreamPathTemplate": "/api/security-service/login/refresh-token",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "amourlink.security",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/security-service/login/refresh-token",
+      "UpstreamHttpMethod": [
+        "POST"
+      ]
+    },
+    {
       "DownstreamPathTemplate": "/api/security-service/login/google",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

@@ -8,5 +8,5 @@ public class Info : Entity
     public required string Title { get; set; }
     
     public ICollection<InfoAnswer> Answers { get; set; } = [];
-    public ICollection<InfoUserDetails> InfoUserDetails { get; set; } = [];
+    public ICollection<InfoDetails> InfoDetails { get; set; } = [];
 }

@@ -2,6 +2,6 @@
 
 public class FeedDto
 {
-    public required MemberDto Member { get; set; }
+    public required ProfileDto Profile { get; set; }
     public InteractionDto? Interaction { get; set; }
 }

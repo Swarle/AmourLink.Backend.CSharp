@@ -1,5 +1,6 @@
 ﻿using AmourLink.Infrastructure.Specification;
 using AmourLink.Recommendation.Data.Entities;
+using AmourLink.Recommendation.Data.Entities.Enums;
 using AmourLink.Recommendation.DTO;
 using AmourLink.Recommendation.Parameters;
 using AmourLink.Recommendation.StaticConstants;
@@ -16,7 +17,17 @@ public sealed class FeedSpecification : BaseSpecification<User>
         AddInclude($"{nameof(UserDetails)}.{nameof(UserDetails.Hobbies)}");
         AddInclude($"{nameof(UserDetails)}.{nameof(UserDetails.Languages)}");
         AddInclude($"{nameof(UserDetails)}.{nameof(UserDetails.Pictures)}");
+        AddInclude($"{nameof(UserDetails)}.{nameof(UserDetails.InfoDetails)}");
+        AddInclude($"{nameof(UserDetails)}.{nameof(UserDetails.InfoDetails)}.{nameof(InfoDetails.Info)}");
+        AddInclude($"{nameof(UserDetails)}.{nameof(UserDetails.InfoDetails)}.{nameof(InfoDetails.InfoAnswer)}");
         AddInclude($"{nameof(UserDetails)}.{nameof(UserDetails.Tags)}");
+
+
+        if (feedParams.GenderPreference != GenderPreference.All)
+        {
+            AddExpression(e => feedParams.GenderPreference == GenderPreference.Male
+                ? e.UserDetails!.Gender == Gender.Male : e.UserDetails!.Gender == Gender.Female);
+        }
         
         AddExpression(e => e.Id != feedParams.CurrentUserId);
         AddExpression(e => !feedParams.ExcludeId.Contains(e.Id));

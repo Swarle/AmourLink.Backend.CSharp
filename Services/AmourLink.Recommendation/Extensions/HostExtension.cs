@@ -3,6 +3,7 @@ using AmourLink.Recommendation.Data.Entities;
 using AmourLink.Recommendation.Data.Entities.Enums;
 using Bogus;
 using Bogus.DataSets;
+using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
 
 namespace AmourLink.Recommendation.Extensions;
@@ -34,14 +35,14 @@ public static class HostExtension
         List<Info> info;
 
         if (context.Info.Any())
-            info = context.Info.ToList();
+            info = context.Info.Include(info => info.Answers).ToList();
         else
         {
             info = GenerateInfos();
             context.Info.AddRange(info);
             context.SaveChanges();
         }
-            
+        
         if (context.Users.Any())
             return host;
 
@@ -70,10 +71,6 @@ public static class HostExtension
                     User = u,
                     LastLocation = new Point(f.Random.Double(50.30d,50.55d),f.Random.Double(30.25d, 30.75d)),
                     Tags = tags,
-                    Hobbies = new List<Hobby>(new Faker<Hobby>()
-                        .RuleFor(h => h.HobbyName, f => f.Lorem.Word())
-                        .RuleFor(h => h.UserId, u.Id)
-                        .Generate(2)),
                     Pictures = new List<Picture>(new Faker<Picture>()
                         .RuleFor(p => p.UserId, u.Id)
                         .RuleFor(p => p.PictureUrl, f => f.Image.PicsumUrl())
@@ -85,7 +82,7 @@ public static class HostExtension
                         .RuleFor(d => d.SchoolName, f => f.Lorem.Word())
                         .RuleFor(d => d.DegreeType, f => f.Lorem.Word())
                         .Generate(),
-                    Infos = info.Select(i => new InfoUserDetails
+                    InfoDetails = info.Select(i => new InfoDetails
                     {
                         InfoId = i.Id,
                         AnswerId = f.PickRandom(i.Answers.Select(a => a.Id)),
@@ -136,10 +133,6 @@ public static class HostExtension
                     Gender = (Gender)f.PickRandom(0, 1),
                     User = u,
                     LastLocation = new Point(f.Random.Double(50.30d,50.55d),f.Random.Double(30.25d, 30.75d)),
-                    Hobbies = new List<Hobby>(new Faker<Hobby>()
-                        .RuleFor(h => h.HobbyName, f => f.Lorem.Word())
-                        .RuleFor(h => h.UserId, u.Id)
-                        .Generate(2)),
                     Pictures = new List<Picture>(new Faker<Picture>()
                         .RuleFor(p => p.UserId, u.Id)
                         .RuleFor(p => p.PictureUrl, f => f.Image.PicsumUrl())

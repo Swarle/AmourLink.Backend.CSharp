@@ -4,4 +4,5 @@ public class PictureDto
 {
     public Guid Id { get; set; }
     public required string PictureUrl { get; set; }
+    public required string Position { get; set; }
 }

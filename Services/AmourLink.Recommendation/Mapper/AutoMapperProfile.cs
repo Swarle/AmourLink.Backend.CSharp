@@ -12,17 +12,34 @@ public class AutoMapperProfile : Profile
     {
         CreateMap<Picture, PictureDto>();
         CreateMap<Degree, DegreeDto>();
-        CreateMap<UserDetails, MemberDto>();
-        CreateMap<User, MemberDto>()
+        CreateMap<Hobby, HobbyDto>();
+        CreateMap<Tag, TagDto>();
+        CreateMap<InfoDetails, InfoDto>()
+            .ForMember(dest => dest.Id, opt =>
+                opt.MapFrom(src => src.InfoId))
+            .ForMember(dest => dest.Title, opt =>
+                opt.MapFrom(src => src.Info.Title))
+            .ForMember(dest => dest.Answers, opt =>
+                opt.MapFrom(src => new List<AnswerDto>
+                {
+                    new AnswerDto
+                    {
+                        Id = src.InfoAnswer.Id,
+                        Answer = src.InfoAnswer.Answer
+                    }
+                }));
+
+        CreateMap<UserDetails, ProfileDto>();
+        CreateMap<User, ProfileDto>()
             .IncludeMembers(src => src.UserDetails)
-            .ForMember(dest => dest.Hobby, opt =>
-                opt.MapFrom(src => src.UserDetails!.Hobbies.Select(h => h.HobbyName).ToList()))
+            // .ForMember(dest => dest.Hobby, opt =>
+            //     opt.MapFrom(src => src.UserDetails!.Hobbies.Select(h => h.HobbyName).ToList()))
             .ForMember(dest => dest.Location, opt => 
                 opt.MapFrom(src => new LocationDto{Longitude = src.UserDetails!.LastLocation!.X, Latitude = src.UserDetails.LastLocation.Y}))
-            .ForMember(src => src.Tags, opt =>
-                opt.MapFrom(dest => dest.UserDetails!.Tags.Select(t => t.TagName).ToList()))
             .ForMember(dest => dest.Gender, opt => 
-                opt.MapFrom(src => src.UserDetails!.Gender.ToString().ToUpperInvariant()));
+                opt.MapFrom(src => src.UserDetails!.Gender.ToString().ToUpperInvariant()))
+            .ForMember(dest => dest.Info, opt => 
+                opt.MapFrom(src => src.UserDetails!.InfoDetails));
 
         CreateMap<Preference, PreferenceDto>()
             .ForMember(dest => dest.Gender, opt => 
